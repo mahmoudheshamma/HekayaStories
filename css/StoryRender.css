@@ -1,0 +1,131 @@
+/* ===========================
+   ROOT
+   =========================== */
+
+.story-root{
+    font-family: "Cairo", Arial;
+    line-height: 1.8;
+    padding: 10px;
+    font-size: large;
+}
+
+/* ===========================
+   TEXT
+   =========================== */
+strong { font-weight: bold; }
+em { font-style: italic; }
+u { text-decoration: underline; }
+del { text-decoration: line-through; }
+mark { background-color: #fff3cd; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.colored{ color:#4f46e5 }
+mark{ background:#fff3cd }
+h1{
+    background-color: #13143a29;
+    border-radius:5px;
+    padding: 10px;
+    color: black;
+    text-shadow: 0 0 2px rgba(0,0,0,0.3);
+    font-size: 25px;
+}
+
+/* ===========================
+   BOXES
+   =========================== */
+
+.box {
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.box.info { background-color: #eef2ff; border-left: 4px solid #4f46e5; }
+.box.warn { background-color: #fff3cd; border-left: 4px solid #ff9800; }
+
+/* ===========================
+   STEP BOX
+   =========================== */
+.step {
+    background: #f0f0f0;
+    border-left: 4px solid #4caf50;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+}
+.step-title { 
+font-weight: bold;
+ display: block; 
+ margin-bottom: 5px;
+  }
+.step-content {
+ padding-left: 10px;
+  }
+
+.tip{
+    background:#e8f5e9;
+    padding:10px;
+    border-radius:8px;
+}
+
+blockquote{
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===========================
+   ANSWERS
+   =========================== */
+
+.story-answer input{
+    padding:6px 10px;
+    border-radius:6px;
+    border:2px solid #ccc;
+}
+
+.story-answer input.correct{
+    border-color:#4caf50;
+    background:#e8f5e9;
+}
+
+.story-answer input.wrong{
+    border-color:#f44336;
+    background:#fdecea;
+}
+
+/* ===========================
+   TABLE
+   =========================== */
+
+.story-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:15px 0;
+}
+
+.story-table th,
+.story-table td{
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:center;
+}
+
+.story-table th{
+    background:#f5f5f5;
+}
+
+/* ===========================
+   ICON
+   =========================== */
+
+.icon{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+
+.icon img{
+    width:20px;
+    height:20px;
+}
