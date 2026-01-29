@@ -36,6 +36,12 @@ header .toolbar{
     border: red 1px solid;
     border-radius: 4px;
 }
+#darkMode{
+    content: url("../img/white_mode.png");
+}
+#darkMode.dark-mode{
+    content: url("../img/dark_mode.png");
+}
 /*footer*/
 footer{
     padding: 8px;
@@ -62,6 +68,7 @@ footer img{
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(232, 333, 231, 1);
 }
+
 /*Aside*/
 #drawer{
     position: fixed;
