@@ -6,6 +6,7 @@
     <title>العلم حكاية</title>
     
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/stories-list.css">
     
 </head>
 <body>
@@ -13,21 +14,30 @@
     <div id="DrawerOverLay" class="DrawerOverLay" onclick="closeDrawer()"></div>
     
     <div id="drawer">
-        <button>fddd</button>
+        <div id="categoryButtons" class="category-bar">
+            <button class="active" data-category="">الكل</button>
+            <button data-category="تواصل اجتماعي">تواصل اجتماعي</button>
+            <button data-category="أطفال">أطفال</button>
+            <button data-category="خيالي">خيالي</button>
+            <button data-category="تاريخ">تاريخ</button>
+            <button data-category="دراما">دراما</button>
+            <button data-category="رعب">رعب</button>
+            <button data-category="تعليم">تعليم</button>
+            <button data-category="حب">حب</button>
+            <button data-category="دين">دين</button>
+            <button data-category="حزن">حزن</button>
+            <button data-category="كوميديا">كوميديا</button>
+        </div>
     </div>
     
-    <div class="body">
-
-        <header>
+    <header>
             <div class="toolbar">
                 <img src="img/menu.png" alt="Menu" onclick="openDrawer()">
                 <h1>العلم حكاية</h1>
                 <input type="search" placeholder="بحث..." id="search">
-                <img src="img/search.png" alt="search">
+                <img id="search-Btn" src="img/search.png" alt="search">
             </div>
         </header>
-
-        <main></main>
         
         <footer>
             <img src="img/dark_mode.png" alt="mode">
@@ -35,10 +45,28 @@
             <img src="img/save.png" alt="favorite">
             <img src="img/communication.png" alt="Helper">
         </footer>
+    
+    <div class="body">
+        
+        <main>
+            <div id="storyContainer">
 
+                
+                
+            </div>
+
+            <div class="buttons">
+                <button id="nextBtn">التالي</button>
+                <span id="pageInfo">0/0</span>
+                <button id="prevBtn">السابق</button>
+            </div>
+        </main>
+        
     </div>
     
+    <script type="module" src="js/FirebaseConfig.js"></script>
     <script src="js/indexEvents.js"></script>
+    <script type="module" src="js/IndexData.js"></script>
 
 </body>
 </html>

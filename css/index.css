@@ -2,8 +2,13 @@
     box-sizing: border-box;
     direction: rtl;
 }
-body{
+body {
     margin: 0;
+    direction: rtl;
+}
+
+.body {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -65,16 +70,11 @@ footer img{
     width: auto;
     padding: 2px;
     height: 100%;
+    filter: invert(1);
     border: white 1.2px solid;
     border-style: groove;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(232, 333, 231, 1);
-}
-/*main*/
-main{
-    display: flex;
-    margin-top: 60px;
-    margin-top: 60px;
 }
 /*Aside*/
 #drawer{
@@ -112,6 +112,87 @@ main{
 #drawer.active{
     opacity: 1;
     transform: translateX(0);
+}
+
+.category-bar{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.category-bar button{
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+.category-bar button.active{
+    background: #263238;
+    color: white;
+    border-color: #263238;
+}
+
+/*main*/
+main {
+    margin-top: 60px;     /* ارتفاع الهيدر */
+    margin-bottom: 50px;  /* ارتفاع الفوتر */
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    flex: 1;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    scroll-behavior: smooth;
+}
+#storyContainer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+main .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 800px;
+    margin: 0 auto;
+
+    padding: 10px;
+}
+
+main .buttons button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #005676;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+main .buttons button:hover {
+    background: #003f50;
+}
+
+#pageInfo {
+    font-weight: bold;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 @media (max-width: 768px){

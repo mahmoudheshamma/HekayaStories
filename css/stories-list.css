@@ -1,0 +1,51 @@
+/* Card List */
+
+.CardStory{
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.HeaderCard{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.HeaderCard span{
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+}
+.InfoCard{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.InfoCard span{
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #eceff1;
+    color: #263238;
+}
+
+.FooterCard{
+    display: flex;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+    justify-content: space-between;
+}
+.FooterCard span{
+    font-size: 13px;
+    font-weight: bold;
+    color: #444;
+}
