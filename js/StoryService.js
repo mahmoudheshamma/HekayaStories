@@ -27,7 +27,7 @@ export async function getStoryBySlug(slug) {
     try {
         const q = query(
             ref(database, "story"),
-            orderByChild("slug"),
+            orderByChild("slug_story"),
             equalTo(slug)
         );
 

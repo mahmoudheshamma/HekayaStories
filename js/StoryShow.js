@@ -1,32 +1,31 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
 
+const path = document.getElementById("path");
+const name_story = document.getElementById("name_story");
+const writer_story = document.getElementById("writer_story");
+const time = document.getElementById("time");
+let contentStory = document.getElementById("story");
+
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
 const id = params.get("id");
 
-let story =[];
+let story = null;
 
 if (slug) {
     story = await getStoryBySlug(slug);
-    
-    render(story);
-    
-} else if(id){
+} else if (id) {
     story = await getStoryById(id);
-    
-    render(story);
 }
 
-const path = document.getElementById("path");
-const name_story = document.getElementById("name_story")
-const writer_story = document.getElementById("writer_story");
-const time = document.getElementById("time");
-const contentStory = document.getElementById("story");
-
+if (story) {
+    render(story);
+} else {
+    contentStory.textContent = "القصة غير موجودة.";
+}
 
 function render(story) {
-
-    document.head.textContent = story.name_story;
+    document.title = story.name_story;
     
-    renderStory(contentStory, story.name_story);
+    renderStory("#story", story.story);
 }
