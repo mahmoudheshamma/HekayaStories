@@ -85,7 +85,12 @@ function renderPage() {
     
     num++;
     
-        const card = document.createElement("div");
+    const card = document.createElement("div");
+    card.style.cursor = "pointer";
+    card.onclick = () => {
+        window.location.href = `StoryShow.html?slug=${story.slug_story}`;
+    };
+    
         card.className = "storyCard";
 
         card.innerHTML = `
