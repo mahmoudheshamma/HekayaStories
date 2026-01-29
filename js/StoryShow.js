@@ -1,6 +1,6 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
 
-const path = document.getElementById("path");
+let path = document.getElementById("path");
 const name_story = document.getElementById("name_story");
 const writer_story = document.getElementById("writer_story");
 const time = document.getElementById("time");
@@ -24,8 +24,13 @@ if (story) {
     contentStory.textContent = "القصة غير موجودة.";
 }
 
+document.querySelector("toolbar").style.justifyContent = 'center';
+
 function render(story) {
+
     document.title = story.name_story;
-    
     renderStory("#story", story.story);
+    writer_story.textContent = story.name_writer;
+    name_story.textContent = story.name_story;
+    path = renderStory("#path", " [[الصفحة الرئيسية|../index.html]] ");
 }

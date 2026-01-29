@@ -12,22 +12,22 @@
 /* ===========================
    TEXT
    =========================== */
-strong { font-weight: bold; }
-em { font-style: italic; }
-u { text-decoration: underline; }
-del { text-decoration: line-through; }
+.story-root strong { font-weight: bold; }
+.story-root em { font-style: italic; }
+.story-root u { text-decoration: underline; }
+.story-root del { text-decoration: line-through; }
 mark { background-color: #fff3cd; }
-a { color: #4f46e5; text-decoration: none; }
-a:hover { text-decoration: underline; }
+.story-root a { color: #4f46e5; text-decoration: none; }
+.story-root a:hover { text-decoration: underline; }
 
 .colored{ color:#4f46e5 }
-mark{ background:#fff3cd }
-h1{
+.story-root mark{ background:#fff3cd }
+.story-root h1{
     background-color: #13143a29;
     border-radius:5px;
     padding: 10px;
     color: black;
-    text-shadow: 0 0 2px rgba(0,0,0,0.3);
+    text-shadow: 0 0 3px rgba(0,0,0,0.1);
     font-size: 25px;
 }
 
@@ -69,7 +69,7 @@ font-weight: bold;
     border-radius:8px;
 }
 
-blockquote{
+.story-root blockquote{
     justify-content: center;
     align-items: center;
 }

@@ -6,6 +6,9 @@ body {
     margin: 0;
     direction: rtl;
 }
+.toolbar{
+    justify-content: center;
+}
 main {
     margin-top: 60px;     /* ارتفاع الهيدر */
     margin-bottom: 50px;  /* ارتفاع الفوتر */
