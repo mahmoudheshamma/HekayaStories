@@ -88,7 +88,7 @@ function renderPage() {
     const card = document.createElement("div");
     card.style.cursor = "pointer";
     card.onclick = () => {
-        window.location.href = `StoryShow.html?slug=${story.slug_story}`;
+        window.location.href = `html/StoryShow.html?slug=${story.slug_story}`;
     };
     
         card.className = "storyCard";

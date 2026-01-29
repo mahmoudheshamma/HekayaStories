@@ -1,0 +1,44 @@
+*{
+    box-sizing: border-box;
+    direction: rtl;
+}
+body {
+    margin: 0;
+    direction: rtl;
+}
+main {
+    margin-top: 60px;     /* ارتفاع الهيدر */
+    margin-bottom: 50px;  /* ارتفاع الفوتر */
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    flex: 1;
+    overflow-y: auto;
+    background-color: #ffffff;
+    scroll-behavior: smooth;
+}
+.Story-Header{
+    background-color: #090e231f;
+    border: 1px solid #fff;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+#path{
+    color: blue;
+}
+#name_story{
+    font-size: 30px;
+    font-weight: bolder;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.content span{
+    font-size: 18px;
+}

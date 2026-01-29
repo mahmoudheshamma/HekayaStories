@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Loading....</title>
+    
+    <link rel="stylesheet" href="../css/GeneralStyle.css">
+    <link rel="stylesheet" href="../css/StoryShow.css">
+    
+</head>
+
+<body>
+    
+    <div id="DrawerOverLay" class="DrawerOverLay" onclick="closeDrawer()"></div>
+    
+    <div id="drawer">
+        <div id="categoryButtons" class="category-bar">
+            <button class="active" data-category="">الكل</button>
+            <button data-category="تواصل اجتماعي">تواصل اجتماعي</button>
+            <button data-category="أطفال">أطفال</button>
+            <button data-category="خيالي">خيالي</button>
+            <button data-category="تاريخ">تاريخ</button>
+            <button data-category="دراما">دراما</button>
+            <button data-category="رعب">رعب</button>
+            <button data-category="تعليم">تعليم</button>
+            <button data-category="حب">حب</button>
+            <button data-category="دين">دين</button>
+            <button data-category="حزن">حزن</button>
+            <button data-category="كوميديا">كوميديا</button>
+        </div>
+    </div>
+    
+    <header>
+            <div class="toolbar">
+                <img src="../img/menu.png" alt="Menu" onclick="openDrawer()">
+                <h1>العلم حكاية</h1>
+                <input type="search" placeholder="بحث..." id="search">
+                <img id="search-Btn" src="../img/search.png" alt="search">
+            </div>
+        </header>
+        
+        <footer>
+            <img src="../img/dark_mode.png" alt="mode">
+            <img src="../img/mainPage.png" alt="home">
+            <img src="../img/save.png" alt="favorite">
+            <img src="../img/communication.png" alt="Helper">
+        </footer>
+    
+    <main>
+        
+        <div class="Story-Header">
+            
+            <span id="path">Main / type</span>
+            <span id="name_story">name</span>
+            <span id="writer_story">writer</span>
+            <span id="time">Time</span>
+            
+        </div>
+        
+        <div class="content">
+            <span id="story">Content</span>
+        </div>
+        
+    </main>
+ 
+     <script type="module" src="../js/StoryShow.js"></script>
+     <script type="module" src="../js/StoryRender.js"></script>
+    
+</body>
+</html>
