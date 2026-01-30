@@ -16,6 +16,10 @@ function closeDrawer() {
   DrawerOverLay.classList.remove("active");
 }
 
+function GoToHome() {
+    
+}
+
 // Dark Mode
 if (darkModeToggle) {
 
