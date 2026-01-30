@@ -1,0 +1,115 @@
+/* Overlay */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+/* Dialog */
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 320px;
+  max-width: 92%;
+  background: #1e1e1e;
+  color: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+
+.dialog:not(.hidden) {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Header */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.dialog-header h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Close */
+.dialog-close {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.dialog-close:hover {
+  color: #fff;
+}
+
+/* Body */
+.dialog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Controls */
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control label {
+  font-size: 13px;
+  color: #aaa;
+}
+
+/* Range */
+input[type="range"] {
+  appearance: none;
+  height: 4px;
+  background: #333;
+  border-radius: 10px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #4f9cff;
+  cursor: pointer;
+}
+
+/* Reset */
+.reset-btn {
+  margin-top: 6px;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  background: #4f9cff;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Utilities */
+.hidden {
+  display: none;
+}
+
+/* Lock background */
+body.dialog-open {
+  overflow: hidden;
+  touch-action: none;
+}

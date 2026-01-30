@@ -130,6 +130,15 @@ font-weight: bold;
     height:20px;
 }
 
+.dialogue{
+    font-style: italic;
+    color: #c0841d;
+    font-weight: 500;
+}
+body.dark-mode .dialogue{
+    color: #fde68a;
+}
+
 
 
 

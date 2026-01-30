@@ -9,10 +9,45 @@
     <link rel="stylesheet" href="../css/StoryRender.css">
     <link rel="stylesheet" href="../css/GeneralStyle.css">
     <link rel="stylesheet" href="../css/StoryShow.css">
+    <link rel="stylesheet" href="../css/DialogHelper.css">
     
 </head>
 
 <body>
+    
+    <!-- Overlay -->
+<div id="overlay" class="dialog-overlay hidden"></div>
+
+<!-- Dialog -->
+<div id="dialog" class="dialog hidden" role="dialog" aria-modal="true">
+
+  <div class="dialog-header">
+    <h3>إعدادات القراءة</h3>
+    <button id="closeDialog" class="dialog-close" aria-label="إغلاق">✕</button>
+  </div>
+
+  <div class="dialog-body">
+
+    <div class="control">
+      <label>
+        حجم الخط:
+        <span id="fontValue">18</span>px
+      </label>
+      <input type="range" id="fontSlider" min="12" max="40" step="1">
+    </div>
+
+    <div class="control">
+      <label>
+        المسافة بين الأسطر:
+        <span id="lineValue">1.6</span>
+      </label>
+      <input type="range" id="lineSlider" min="1" max="3" step="0.1">
+    </div>
+
+    <button id="resetSettings" class="reset-btn">إعادة الضبط</button>
+
+  </div>
+</div>    
     
     <header>
             <div class="toolbar">
@@ -26,10 +61,10 @@
             <img id="darkMode" src="../img/dark_mode.png" alt="mode">
             <img id="home" src="../img/mainPage.png" alt="home">
             <img id="BackToTop" src="../img/up-arrow.png" alt="up">
-            <img src="../img/communication.png" alt="Helper">
+        <img id="toggleDialog" src="../img/help.png" alt="Helper" style="cursor:pointer;">
         </footer>
     
-    <main>
+    <main class="content">
         
         <div class="Story-Header">
             
@@ -46,6 +81,7 @@
         
     </main>
  
+     <script src="../js/DialogHelper.js"></script> 
      <script src="../js/StoryRender.js"></script>
      <script type="module" src="../js/StoryShow.js"></script>
      <script src="../js/GeneralEvents.js" defer></script>

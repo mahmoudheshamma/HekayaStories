@@ -83,6 +83,16 @@ function checkAllAnswers(){
 
 const StoryPlugins = [];
 
+function escapeHTML(str){
+    if(!str) return "";
+    return str
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
 function addPlugin({name, regex, render, priority=10}){
     StoryPlugins.push({name, regex, render, priority});
     StoryPlugins.sort((a,b)=>a.priority-b.priority);
@@ -90,34 +100,49 @@ function addPlugin({name, regex, render, priority=10}){
 
 // Headers [###,##,#]
 addPlugin({
-    name: "headers",
+    name: "header-h3",
+    priority: 1,
     regex: /^### (.*)$/gm,
-    render: m=> `<h3>${m[1]}</h3>`
+    render: m=> `<h3>${escapeHTML(m[1])}</h3>`
 });
 
 addPlugin({
-    name: "headers",
+    name: "header-h2",
+    priority: 1,
     regex: /^## (.*)$/gm,
-    render: m=> `<h2>${m[1]}</h2>`
+    render: m=> `<h2>${escapeHTML(m[1])}</h2>`
 });
 
 addPlugin({
-    name: "headers",
+    name: "header-h1",
+    priority: 1,
     regex: /^# (.*)$/gm,
-    render: m=> `<h1>${m[1]}</h1>`
+    render: m=> `<h1>${escapeHTML(m[1])}</h1>`
+});
+
+// "chat"
+addPlugin({
+    name: "dialogue",
+    priority: 6,
+    regex: /"([^"\n]+)"/g,
+    render: m => `
+        <span class="dialogue">
+            “${escapeHTML(m[1])}”
+        </span>
+    `
 });
 
 // **BOLD** __ITALIC__
 addPlugin({
     name: "bold",
     regex: /\*\*(.*?)\*\*/g,
-    render: m=> `<strong>${m[1]}</strong>`
+    render: m=> `<strong>${escapeHTML(m[1])}</strong>`
 });
 
 addPlugin({
     name: "italic",
     regex: /__(.*?)__/g,
-    render: m=> `<em>${m[1]}</em>`
+    render: m=> `<em>${escapeHTML(m[1])}</em>`
 });
 
 // ~~UnderLine~~ %%Strike%% ==highlight==
@@ -150,7 +175,10 @@ addPlugin({
 addPlugin({
     name: "link",
     regex: /\[\[(.*?)\s*\|\s*(.*?)\]\]/g,
-    render: m=> `<a href="${m[2]}" target="_blank">${m[1]}</a>`
+    render: m=> `
+        <a href="${escapeHTML(m[2])}" target="_blank" rel="noopener">
+            ${escapeHTML(m[1])}
+        </a>`
 });
 
 // Info Box: [info]content[/info]
@@ -178,11 +206,16 @@ addPlugin({
         </div>`
 });
 
-// >>> string
+// >>> string <<<
 addPlugin({
     name: "quote",
-    regex: />>>\s*\n([\s\S]*?)\n\]/g,
-    render: m => `<blockquote>${m[1]}</blockquote>`
+    priority: 4,
+    regex: />>>\s*\n([\s\S]*?)\n<<<$/gm,
+    render: m => `
+        <blockquote>
+            ${escapeHTML(m[1])}
+        </blockquote>
+    `
 });
 
 /*. LIST
@@ -208,7 +241,7 @@ addPlugin({
 addPlugin({
     name: "space",
     regex: /^;;;+$/gm,
-    render: () => `<div class="space">`
+    render: () => `<div class="space"></div>`
 });
 
 // ::: space_line
