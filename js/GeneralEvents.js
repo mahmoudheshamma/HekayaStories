@@ -20,7 +20,7 @@ function shareSite() {
     if (navigator.share) {  
         navigator.share({  
             title: document.title,  
-            text: 'شاهد هذا الموقع 👇',  
+            text: 'شاهد هذا القصة',  
             url: window.location.href  
         }).catch(err => console.log('تم إلغاء المشاركة'));  
     } else {
