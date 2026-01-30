@@ -5,6 +5,11 @@
 body {
     margin: 0;
     direction: rtl;
+    background-color: #ffffff;
+}
+body.dark-mode{
+    background-color: #010510;
+    color: #000;
 }
 .toolbar{
     justify-content: center;
@@ -20,7 +25,6 @@ main {
 
     flex: 1;
     overflow-y: auto;
-    background-color: #ffffff;
     scroll-behavior: smooth;
 }
 .Story-Header{
@@ -31,6 +35,10 @@ main {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+}
+body.dark-mode .Story-Header{
+    background-color: #484848;
+    color: #fff;
 }
 #path{
     color: blue;

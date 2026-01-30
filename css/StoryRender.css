@@ -2,7 +2,7 @@
    ROOT
    =========================== */
 
-.story-root{
+body .story-root{
     font-family: "Cairo", Arial;
     line-height: 1.8;
     padding: 10px;
@@ -128,4 +128,179 @@ font-weight: bold;
 .icon img{
     width:20px;
     height:20px;
+}
+
+
+
+
+/* ===========================
+   ROOT – DARK MODE
+   =========================== */
+
+body.dark-mode .story-root{
+    font-family: "Cairo", Arial;
+    line-height: 1.8;
+    padding: 10px;
+    font-size: large;
+    color: #e5e7eb;
+}
+
+/* ===========================
+   TEXT – DARK MODE
+   =========================== */
+
+body.dark-mode .story-root strong { color:#f9fafb; }
+body.dark-mode .story-root em { color:#e5e7eb; }
+body.dark-mode .story-root u { text-decoration: underline; }
+body.dark-mode .story-root del { color:#9ca3af; }
+
+body.dark-mode .story-root mark{
+    background-color:#3a2f1b;
+    color:#fde68a;
+}
+
+body.dark-mode .story-root a{
+    color:#818cf8;
+    text-decoration:none;
+}
+body.dark-mode .story-root a:hover{
+    text-decoration:underline;
+}
+
+body.dark-mode .colored{ color:#818cf8 }
+
+/* ===========================
+   HEADERS
+   =========================== */
+
+body.dark-mode .story-root h1{
+    background-color:#1f2937;
+    border-radius:5px;
+    padding:10px;
+    color:#f9fafb;
+    text-shadow:none;
+    font-size:25px;
+}
+
+/* ===========================
+   BOXES – DARK MODE
+   =========================== */
+
+body.dark-mode .box{
+    padding:12px;
+    border-radius:8px;
+    margin:10px 0;
+}
+
+body.dark-mode .box.info{
+    background-color:#1e293b;
+    border-left:4px solid #6366f1;
+}
+
+body.dark-mode .box.warn{
+    background-color:#3a2f1b;
+    border-left:4px solid #f59e0b;
+}
+
+/* ===========================
+   STEP BOX – DARK MODE
+   =========================== */
+
+body.dark-mode .step{
+    background:#1f2937;
+    border-left:4px solid #22c55e;
+    padding:10px;
+    margin:10px 0;
+    border-radius:6px;
+}
+
+body.dark-mode .step-title{
+    font-weight:bold;
+    color:#bbf7d0;
+}
+
+body.dark-mode .step-content{
+    padding-left:10px;
+    color:#e5e7eb;
+}
+
+/* ===========================
+   TIP – DARK MODE
+   =========================== */
+
+body.dark-mode .tip{
+    background:#064e3b;
+    padding:10px;
+    border-radius:8px;
+    color:#d1fae5;
+}
+
+/* ===========================
+   BLOCKQUOTE
+   =========================== */
+
+body.dark-mode .story-root blockquote{
+    border-left:4px solid #4b5563;
+    padding-left:10px;
+    color:#d1d5db;
+}
+
+/* ===========================
+   ANSWERS – DARK MODE
+   =========================== */
+
+body.dark-mode .story-answer input{
+    padding:6px 10px;
+    border-radius:6px;
+    border:2px solid #4b5563;
+    background:#111827;
+    color:#f9fafb;
+}
+
+body.dark-mode .story-answer input.correct{
+    border-color:#22c55e;
+    background:#064e3b;
+}
+
+body.dark-mode .story-answer input.wrong{
+    border-color:#ef4444;
+    background:#3f1d1d;
+}
+
+/* ===========================
+   TABLE – DARK MODE
+   =========================== */
+
+body.dark-mode .story-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:15px 0;
+}
+
+body.dark-mode .story-table th,
+body.dark-mode .story-table td{
+    border:1px solid #374151;
+    padding:10px;
+    text-align:center;
+    color:#e5e7eb;
+}
+
+body.dark-mode .story-table th{
+    background:#1f2937;
+}
+
+/* ===========================
+   ICON – DARK MODE
+   =========================== */
+
+body.dark-mode .icon{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+
+body.dark-mode .icon img{
+    width:20px;
+    height:20px;
+    filter:brightness(0.9);
 }

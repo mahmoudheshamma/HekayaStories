@@ -36,10 +36,10 @@ header .toolbar{
     border: red 1px solid;
     border-radius: 4px;
 }
-#darkMode{
+body #darkMode{
     content: url("../img/white_mode.png");
 }
-#darkMode.dark-mode{
+body.dark-mode #darkMode{
     content: url("../img/dark_mode.png");
 }
 /*footer*/
