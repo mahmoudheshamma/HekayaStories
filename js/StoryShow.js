@@ -6,6 +6,8 @@ const writer_story = document.getElementById("writer_story");
 const time = document.getElementById("time");
 let contentStory = document.getElementById("story");
 
+showLoading();
+
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
 const id = params.get("id");
@@ -43,4 +45,6 @@ metaDescription.content = /* story.description || */ story.story.slice(0, 150);
     writer_story.textContent = story.name_writer;
     name_story.textContent = story.name_story;
     path = renderStory("#path", " [[الصفحة الرئيسية|../index.html]] ");
+    
+    hideLoading();
 }

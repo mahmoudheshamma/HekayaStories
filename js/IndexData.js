@@ -6,6 +6,8 @@ import {
 
 /* ========= Variables ========= */
 
+showLoading();
+
 let storiesList = [];
 let filteredList = [];
 let currentPage = 1;
@@ -59,6 +61,7 @@ async function loadStories() {
         }));
 
         filteredList = [...storiesList];
+        hideLoading();
         renderPage();
     } catch (err) {
         console.error("Firebase Error:", err);
