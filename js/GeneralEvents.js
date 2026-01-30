@@ -16,8 +16,26 @@ function closeDrawer() {
   DrawerOverLay.classList.remove("active");
 }
 
+function shareSite() {  
+    if (navigator.share) {  
+        navigator.share({  
+            title: document.title,  
+            text: 'شاهد هذا الموقع 👇',  
+            url: window.location.href  
+        }).catch(err => console.log('تم إلغاء المشاركة'));  
+    } else {
+        alert("المشاركة غير مدعومة على هذا المتصفح");
+    }
+}
+
+// ربط الدالة مع العنصر الذي له id "shareBtn"
+document.addEventListener("DOMContentLoaded", () => {
+    const shareButton = document.getElementById("shareBtn");
+    shareButton.addEventListener("click", shareSite);
+});
+
 function GoToHome() {
-    
+    window.location.href = "../index.html";
 }
 
 // Dark Mode
