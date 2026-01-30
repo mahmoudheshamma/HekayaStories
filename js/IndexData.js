@@ -6,8 +6,6 @@ import {
 
 /* ========= Variables ========= */
 
-showLoading();
-
 let storiesList = [];
 let filteredList = [];
 let currentPage = 1;
