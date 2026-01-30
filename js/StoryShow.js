@@ -35,45 +35,7 @@ if (!metaDescription) {
     metaDescription.name = "description";
     document.head.appendChild(metaDescription);
 }
-metaDescription.content = story.description || story.story.slice(0, 150);
-
-//
-
-let breadcrumbScript = document.createElement("script");
-breadcrumbScript.type = "application/ld+json";
-breadcrumbScript.text = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://hekaya.m3dstory.great-site.net/" },
-        { "@type": "ListItem", "position": 2, "name": story.name_story, "item": `https://hekaya.m3dstory.great-site.net/html/StoryShow.html?slug=${story.slug_story}` }
-    ]
-});
-document.head.appendChild(breadcrumbScript);
-
-// URL
-
-let linkCanonical = document.querySelector('link[rel="canonical"]');
-if (!linkCanonical) {
-    linkCanonical = document.createElement('link');
-    linkCanonical.rel = "canonical";
-    document.head.appendChild(linkCanonical);
-}
-linkCanonical.href = `https://hekaya.m3dstory.great-site.net/html/StoryShow.html?slug=${story.slug_story}`;
-    
-    //
-    
-    let schemaScript = document.createElement("script");
-schemaScript.type = "application/ld+json";
-schemaScript.text = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": story.name_story,
-    "author": { "@type": "Person", "name": story.name_writer || "DEVELOPER" },
-    "datePublished": story.updated_at || new Date().toISOString(),
-    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://hekaya.m3dstory.great-site.net/html/StoryShow.html?slug=${story.slug_story}` }
-});
-document.head.appendChild(schemaScript);
+metaDescription.content = /* story.description || */ story.story.slice(0, 150);
 
 //
     
