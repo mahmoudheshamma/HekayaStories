@@ -52,7 +52,8 @@
     #global-loading-text {
       margin-top: 14px;
       color: #fff;
-      font-size: 15px;
+      font-weight: bold;
+      font-size: 25px;
       opacity: 0.85;
       letter-spacing: 0.3px;
     }
