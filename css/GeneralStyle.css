@@ -84,6 +84,10 @@ footer img{
     transition: transform 0.3s ease, opacity 0.3s ease;
     z-index: 10000;
     box-shadow: -12px 0 30px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 20px 0 0 20px;
 }
 .DrawerOverLay{
     height: 100%;
@@ -106,20 +110,30 @@ footer img{
     opacity: 1;
     transform: translateX(0);
 }
+#drawer span{
+    color: #fff;
+    margin: 5px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+    border-bottom: 2px solid white;
+}
 
 .category-bar{
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     margin-bottom: 15px;
 }
 .category-bar button{
     padding: 6px 14px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     background: white;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: bold;
 }
 .category-bar button.active{
     background: #263238;

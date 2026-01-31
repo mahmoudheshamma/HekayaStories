@@ -24,7 +24,7 @@ const categoriesArabic = {
     community: "تواصل اجتماعي",
     children: "أطفال",
     notreal: "خيالي",
-    history: "تاريخ",
+    history: "تاريخية",
     drama: "دراما",
     horror: "رعب",
     education: "تعليمية",
