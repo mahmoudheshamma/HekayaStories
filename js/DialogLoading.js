@@ -53,9 +53,10 @@
       margin-top: 14px;
       color: #fff;
       font-weight: bold;
-      font-size: 25px;
+      font-size: 20px;
       opacity: 0.85;
       letter-spacing: 0.3px;
+      text-shadow: 0px 0px 6px white;
     }
 
     body.loading-lock {

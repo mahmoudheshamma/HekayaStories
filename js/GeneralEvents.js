@@ -66,3 +66,47 @@ if (backToTop) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
+
+// copy paste stop
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+["copy", "cut", "paste"].forEach(event => {
+  document.addEventListener(event, e => e.preventDefault());
+});
+
+document.addEventListener("keydown", function(e) {
+
+  // Ctrl + C / V / X / A / S / U
+  if (e.ctrlKey && ["c","v","x","a","s","u"].includes(e.key.toLowerCase())) {
+    e.preventDefault();
+  }
+
+  // F12
+  if (e.key === "F12") {
+    e.preventDefault();
+  }
+
+  // Ctrl + Shift + I / J / C
+  if (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase())) {
+    e.preventDefault();
+  }
+});
+
+// 7️⃣ كشف فتح DevTools (طريقة ذكية)
+setInterval(() => {
+  const threshold = 160;
+  if (
+    window.outerWidth - window.innerWidth > threshold ||
+    window.outerHeight - window.innerHeight > threshold
+  ) {
+    document.body.innerHTML = "<h1>🚫 المحتوى محمي</h1>";
+  }
+}, 500);
+
+// 8️⃣ تعطيل السحب
+document.addEventListener("dragstart", e => e.preventDefault());
+
+// 9️⃣ تعطيل اللمس المطوّل (موبايل)
+document.addEventListener("touchstart", e => {
+  if (e.touches.length > 1) e.preventDefault();
+}, { passive: false });

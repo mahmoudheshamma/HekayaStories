@@ -1,3 +1,21 @@
+*{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body{
+    -webkit-touch-callout: none;
+}
+
+::selection {
+  background: transparent;
+}
+::-moz-selection {
+  background: transparent;
+}
+
 header .toolbar{
     background: linear-gradient(135deg, #0f2027, #203a43, #005676);;
     display: flex;
