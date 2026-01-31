@@ -27,10 +27,10 @@ const categoriesArabic = {
     history: "تاريخ",
     drama: "دراما",
     horror: "رعب",
-    education: "تعليم",
-    love: "حب",
-    religion: "دين",
-    sad: "حزن",
+    education: "تعليمية",
+    love: "رومانسية",
+    religion: "دينية",
+    sad: "حزين",
     comedy: "كوميديا"
 };
 
@@ -53,10 +53,19 @@ async function loadStories() {
         const snapshot = await get(ref(database, "story"));
         const data = snapshot.val() || {};
 
-        storiesList = Object.keys(data).map(id => ({
+        storiesList = Object.keys(data)
+        .map(id => ({
             id,
             ...data[id]
-        }));
+        }))
+        .filter(story => {
+           
+                if (!story) return false;
+                if (story.type === "TellYouStory") return false;
+                if(story.status === "check") return false;
+                
+                return true;
+            });
 
         filteredList = [...storiesList];
         hideLoading();
@@ -73,7 +82,7 @@ function renderPage() {
 
     if (filteredList.length === 0) {
         storyContainer.innerHTML = "<p>لا توجد قصص</p>";
-        pageInfo.textContent = "0 / 0";
+        pageInfo.textContent = "Not found !";
         return;
     }
 
