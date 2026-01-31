@@ -132,6 +132,18 @@ addPlugin({
     `
 });
 
+// { قران + رقم + }
+addPlugin({
+    name: "quran-verse-circle",
+    regex: /\{\+(\d+)\+(.*?)\}/g,
+    render: m => `
+        <span class="quran-verse-circle">
+            <span class="verse-circle">${m[1]}</span>
+            <span class="verse-text">${escapeHTML(m[2])}</span>
+        </span>
+    `
+});
+
 // **BOLD** __ITALIC__
 addPlugin({
     name: "bold",
