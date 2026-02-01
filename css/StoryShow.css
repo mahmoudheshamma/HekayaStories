@@ -48,7 +48,7 @@ main.content {
 
 #path {
     color: #38bdf8;
-    cursor: pointer;
+    text-decoration: none;
 }
 
 /* Title */
@@ -82,13 +82,11 @@ main.content {
 
 /* ===== Story Content ===== */
 .story-content {
-    background-color: #0b1220;
     padding: 25px;
     border-radius: 18px;
 
     line-height: 1.9;
-    font-size: 17px;
-    color: #e5e7eb;
+    font-size: 17px;    
 
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }

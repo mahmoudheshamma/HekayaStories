@@ -1,12 +1,18 @@
-/* ===============================
-   Realtime Views System
-   =============================== */
+// views.js
+import { database } from './FirebaseConfig.js';
+import { ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
-/* المتغير العام (تستدعيه من أي مكان) */
-window.STORY_VIEWS = 0;
+/* متغير عام */
+export let STORY_VIEWS = 0;
+
+/* منع تكرار التهيئة */
+const _activeViewStories = new Set();
+
+/* Callbacks عند التحديث */
+const _viewsCallbacks = [];
 
 /* ===============================
-   تشفير النص (SHA-256)
+   تشفير SHA-256
    =============================== */
 async function _hash(text) {
   const enc = new TextEncoder().encode(text);
@@ -17,7 +23,7 @@ async function _hash(text) {
 }
 
 /* ===============================
-   Local Storage Helpers
+   LocalStorage Helpers
    =============================== */
 function _hasViewed(key) {
   return localStorage.getItem("v_" + key) === "1";
@@ -28,29 +34,42 @@ function _markViewed(key) {
 }
 
 /* ===============================
+   الاشتراك في التحديثات
+   =============================== */
+export function onStoryViewsUpdate(callback) {
+  if (typeof callback === "function") {
+    _viewsCallbacks.push(callback);
+  }
+}
+
+/* ===============================
    النظام الرئيسي
    =============================== */
-window._activeViewStories = new Set();
+export async function initStoryViews(rawStoryId) {
+  if (!rawStoryId) return;
 
-async function initStoryViews(rawStoryId) {
-
-  if (window._activeViewStories.has(rawStoryId)) return;
-  window._activeViewStories.add(rawStoryId);
+  if (_activeViewStories.has(rawStoryId)) return;
+  _activeViewStories.add(rawStoryId);
 
   const storyKey = await _hash(rawStoryId);
-  const ref = firebase.database().ref("story/" + storyKey + "/seen");
+  const storyRef = ref(database, `story/${storyKey}/seen`);
 
+  // زيادة المشاهدة مرة واحدة لكل جهاز
   if (!_hasViewed(storyKey)) {
-    ref.transaction(v => (v || 0) + 1);
+    runTransaction(storyRef, v => (v || 0) + 1);
     _markViewed(storyKey);
   }
 
-  ref.on("value", snap => {
-    window.STORY_VIEWS = snap.val() || 0;
+  // الاستماع للتحديثات Realtime
+  onValue(storyRef, snap => {
+    STORY_VIEWS = snap.val() || 0;
+    _viewsCallbacks.forEach(cb => cb(STORY_VIEWS));
   });
 }
 
 /* ===============================
-   دالة جاهزة للاستخدام الخارجي
+   Getter عام
    =============================== */
-window.getStoryViews = () => window.STORY_VIEWS;
+export function getStoryViews() {
+  return STORY_VIEWS;
+}

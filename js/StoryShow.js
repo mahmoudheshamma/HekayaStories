@@ -1,4 +1,5 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
+import { initStoryViews, onStoryViewsUpdate, getStoryViews } from './ViewsManager.js';
 
 let path = document.getElementById("path");
 const name_story = document.getElementById("name_story");
@@ -74,8 +75,14 @@ metaDescription.content = /* story.description || */ story.story.slice(0, 150);
     name_story.textContent = story.name_story;
     path = renderStory("#path", " [[الصفحة الرئيسية|../index.html]] > strClass ");
     
-    initStoryViews(story.id_story);
-    document.getElementById("views").innerText = getStoryViews();
-    
+    // StoryShow.js
+initStoryViews(story.id_story);
+
+onStoryViewsUpdate(views => {
+  const el = document.getElementById("views");
+  if (el) el.innerText = views;
+  console.log("Views:", views);
+});
+
     hideLoading();
 }
