@@ -52,7 +52,7 @@
     <header>
             <div style="justify-content:center" class="toolbar">
                 
-                <h1>العلم حكاية</h1>
+                <h1 onclick="GoToHome()">العلم حكاية</h1>
                 
             </div>
         </header>
@@ -73,6 +73,10 @@
             <span id="name_story">name</span>
             <span id="writer_story">writer</span>
             <span id="time">Time</span>
+            <div>
+                <img src="../img/views.png" alt="view">
+                <span id="views">0</span>
+            </div>
             
         </div>
         
@@ -83,13 +87,14 @@
     </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+     <script src="../js/ViewsManager"></script>
      <script src="../js/DialogLoading.js"></script>
      <script src="../js/DialogHelper.js"></script> 
      <script src="../js/StoryRender.js"></script>
      <script type="module" src="../js/StoryShow.js"></script>
      <script src="../js/GeneralEvents.js" defer></script>
           
-          
+                    
     
 </body>
 </html>

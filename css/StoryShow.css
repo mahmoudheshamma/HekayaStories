@@ -36,6 +36,10 @@ main {
     flex-direction: column;
     margin-bottom: 20px;
 }
+.Story-Header img{
+    width: 40px;
+    height: auto;
+}
 body.dark-mode .Story-Header{
     background-color: #484848;
     color: #fff;

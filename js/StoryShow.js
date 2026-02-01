@@ -6,6 +6,32 @@ const writer_story = document.getElementById("writer_story");
 const time = document.getElementById("time");
 let contentStory = document.getElementById("story");
 
+const categoriesArabic = {
+    community: "تواصل اجتماعي",
+    children: "أطفال",
+    notreal: "خيالي",
+    history: "تاريخية",
+    drama: "دراما",
+    horror: "رعب",
+    education: "تعليمية",
+    love: "رومانسية",
+    religion: "دينية",
+    sad: "حزين",
+    comedy: "كوميديا"
+};
+
+/* ========= Helpers ========= */
+
+function getCategoryString(story) {
+    let list = [];
+    for (let key in categoriesArabic) {
+        if (story[key] === "on") {
+            list.push(categoriesArabic[key]);
+        }
+    }
+    return list.join("، ");
+}
+
 showLoading();
 
 const params = new URLSearchParams(window.location.search);
@@ -40,11 +66,16 @@ if (!metaDescription) {
 metaDescription.content = /* story.description || */ story.story.slice(0, 150);
 
 //
+
+    let strClass = getCategoryString(story);
     
     renderStory("#story", story.story);
     writer_story.textContent = story.name_writer;
     name_story.textContent = story.name_story;
-    path = renderStory("#path", " [[الصفحة الرئيسية|../index.html]] ");
+    path = renderStory("#path", " [[الصفحة الرئيسية|../index.html]] > strClass ");
+    
+    initStoryViews(story.id_story);
+    document.getElementById("views").innerText = getStoryViews();
     
     hideLoading();
 }
