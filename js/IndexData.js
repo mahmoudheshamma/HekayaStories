@@ -106,8 +106,8 @@ function renderPage() {
         card.innerHTML = `
             <div class="CardStory">
                 <div class="HeaderCard">
-                    <span class="storyName">${story.name_story || ""}</span>
-                    <span class="storyNumber">#${story.num_story}</span>
+                    <span class="storyName">${story.name_story || ""} ${story.num_story}</span>
+                    <span class="storyViews">👁️ ${story.seen}</span>
                 </div>
 
                 <div class="InfoCard">
