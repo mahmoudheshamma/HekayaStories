@@ -14,44 +14,104 @@ body.dark-mode{
 .toolbar{
     justify-content: center;
 }
-main {
-    margin-top: 60px;     /* ارتفاع الهيدر */
-    margin-bottom: 50px;  /* ارتفاع الفوتر */
-    padding: 15px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
-    flex: 1;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-}
-.Story-Header{
-    background-color: #090e231f;
-    border: 1px solid #fff;
+main.content {
+    margin-top: 70px;
+    margin-bottom: 60px;
     padding: 20px;
-    border-radius: 15px;
+
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    gap: 25px;
+
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
-.Story-Header img{
-    width: 40px;
-    height: auto;
-}
-body.dark-mode .Story-Header{
-    background-color: #484848;
+
+/* ===== Story Card ===== */
+.story-card {
+    background: linear-gradient(135deg, #0f172a, #020617);
+    border-radius: 18px;
+    padding: 25px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
     color: #fff;
 }
-#path{
-    color: blue;
+
+/* Top meta */
+.story-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    opacity: 0.85;
 }
-#name_story{
-    font-size: 30px;
-    font-weight: bolder;
-    padding-bottom: 10px;
-    padding-top: 10px;
+
+#path {
+    color: #38bdf8;
+    cursor: pointer;
+}
+
+/* Title */
+#name_story {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 800;
+    margin: 15px 0;
+    line-height: 1.2;
+}
+
+/* Writer + views */
+.story-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.views-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.views-box img {
+    width: 22px;
+}
+
+/* ===== Story Content ===== */
+.story-content {
+    background-color: #0b1220;
+    padding: 25px;
+    border-radius: 18px;
+
+    line-height: 1.9;
+    font-size: 17px;
+    color: #e5e7eb;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* ===== Dark Mode ===== */
+body.dark-mode .story-card {
+    background: linear-gradient(135deg, #1e293b, #020617);
+}
+
+body.dark-mode .story-content {
+    background-color: #020617;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    .story-info {
+        gap: 10px;
+    }
+
+    .story-content {
+        font-size: 16px;
+        padding: 20px;
+    }
 }
 
 .content span{
