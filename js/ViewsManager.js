@@ -38,7 +38,7 @@ async function initStoryViews(rawStoryId) {
   window._activeViewStories.add(rawStoryId);
 
   const storyKey = await _hash(rawStoryId);
-  const ref = firebase.database().ref("stories/" + storyKey + "/views");
+  const ref = firebase.database().ref("story/" + storyKey + "/seen");
 
   if (!_hasViewed(storyKey)) {
     ref.transaction(v => (v || 0) + 1);
