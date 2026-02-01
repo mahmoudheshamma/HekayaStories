@@ -78,13 +78,10 @@ metaDescription.content = /* story.description || */ story.story.slice(0, 150);
     // StoryShow.js
 initStoryViews(story.id_story);
 
-onStoryViewsUpdate(views => {
-  
-  const viewsElement = document.getElementById("views");
-  if (viewsElement) {
-    viewsElement.textContent = views;
-  }
-  
+// تفعيل callback لتحديث الواجهة مباشرة عند تغير المشاهدات
+onStoryViewsUpdate((views) => {
+    console.log("عدد المشاهدات الحالي:", views);
+    document.getElementById("views").textContent = views;
 });
 
     hideLoading();
