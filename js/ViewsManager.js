@@ -5,59 +5,35 @@ import { ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs
 /* متغير عام */
 export let STORY_VIEWS = 0;
 
-/* منع تكرار التهيئة */
-const _activeViewStories = new Set();
-
 /* Callbacks عند التحديث */
 const _viewsCallbacks = [];
-
-/* ===============================
-   تشفير SHA-256
-   =============================== */
-async function _hash(text) {
-  const enc = new TextEncoder().encode(text);
-  const buf = await crypto.subtle.digest("SHA-256", enc);
-  return Array.from(new Uint8Array(buf))
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-/* ===============================
-   LocalStorage Helpers
-   =============================== */
-function _hasViewed(key) {
-  return localStorage.getItem("v_" + key) === "1";
-}
-
-function _markViewed(key) {
-  localStorage.setItem("v_" + key, "1");
-}
 
 /* ===============================
    الاشتراك في التحديثات
    =============================== */
 export function onStoryViewsUpdate(callback) {
-  if (typeof callback === "function") {
-    _viewsCallbacks.push(callback);
-  }
+  if (typeof callback === "function") _viewsCallbacks.push(callback);
 }
 
 /* ===============================
-   النظام الرئيسي
+   النظام الرئيسي باستخدام LocalStorage
    =============================== */
 export async function initStoryViews(rawStoryId) {
   if (!rawStoryId) return;
 
-  if (_activeViewStories.has(rawStoryId)) return;
-  _activeViewStories.add(rawStoryId);
+  // استخدام ID مباشرة كمفتاح
+  const safeStoryId = rawStoryId.replace(/[.#$[\]]/g, "_"); // اجعل المسار صالح إذا فيه رموز ممنوعة
+  const storyRef = ref(database, `story/${safeStoryId}/seen`);
 
-  const storyKey = await _hash(rawStoryId);
-  const storyRef = ref(database, `story/${storyKey}/seen`);
+  // تحقق محليًا إذا تم مشاهدة القصة من قبل
+  const localKey = `story_seen_${safeStoryId}`;
+  const hasSeen = localStorage.getItem(localKey);
 
-  // زيادة المشاهدة مرة واحدة لكل جهاز
-  if (!_hasViewed(storyKey)) {
-    runTransaction(storyRef, v => (v || 0) + 1);
-    _markViewed(storyKey);
+  if (!hasSeen) {
+    // لم يشاهد من قبل → زيادة المشاهدة
+    await runTransaction(storyRef, current => (current || 0) + 1);
+    // تخزين الحالة محليًا
+    localStorage.setItem(localKey, "true");
   }
 
   // الاستماع للتحديثات Realtime

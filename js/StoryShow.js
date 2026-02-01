@@ -79,9 +79,12 @@ metaDescription.content = /* story.description || */ story.story.slice(0, 150);
 initStoryViews(story.id_story);
 
 onStoryViewsUpdate(views => {
-  const el = document.getElementById("views");
-  if (el) el.innerText = views;
-  console.log("Views:", views);
+  
+  const viewsElement = document.getElementById("views");
+  if (viewsElement) {
+    viewsElement.textContent = views;
+  }
+  
 });
 
     hideLoading();

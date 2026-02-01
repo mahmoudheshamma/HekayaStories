@@ -31,7 +31,7 @@ main.content {
 /* ===== Story Card ===== */
 .story-card {
     background: linear-gradient(135deg, #0f172a, #020617);
-    border-radius: 18px;
+    border-radius: 10px;
     padding: 25px;
 
     box-shadow: 0 10px 30px rgba(0,0,0,0.35);
@@ -83,12 +83,12 @@ main.content {
 /* ===== Story Content ===== */
 .story-content {
     padding: 25px;
-    border-radius: 18px;
+    border-radius: 5px;
 
     line-height: 1.9;
     font-size: 17px;    
 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
 }
 
 /* ===== Dark Mode ===== */
