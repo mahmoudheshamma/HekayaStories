@@ -34,6 +34,11 @@ const categoriesArabic = {
     comedy: "كوميديا"
 };
 
+function getCategoryFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("category") || ""; // لو مش موجود => all
+}
+
 /* ========= Helpers ========= */
 
 function getCategoryString(story) {
@@ -136,18 +141,17 @@ function applyFilters() {
     const search = searchInput.value.toLowerCase();
 
     filteredList = storiesList.filter(story => {
-        const title = (story.name_story || "").toLowerCase();
+        const title  = (story.name_story || "").toLowerCase();
         const writer = (story.name_writer || "").toLowerCase();
-        const cats = getCategoryString(story).toLowerCase();
 
         const matchCategory =
-            selectedCategory === "" || cats.includes(selectedCategory.toLowerCase());
+            selectedCategory === "" || story[selectedCategory] === "on";
 
         const matchSearch =
             search === "" ||
             title.includes(search) ||
             writer.includes(search) ||
-            cats.includes(search);
+            getCategoryString(story).toLowerCase().includes(search);
 
         return matchCategory && matchSearch;
     });
@@ -162,12 +166,21 @@ searchInput.addEventListener("input", applyFilters);
 
 document.querySelectorAll("#categoryButtons button").forEach(btn => {
     btn.addEventListener("click", () => {
-        document
-            .querySelectorAll("#categoryButtons button")
+
+        document.querySelectorAll("#categoryButtons button")
             .forEach(b => b.classList.remove("active"));
 
         btn.classList.add("active");
-        selectedCategory = btn.dataset.category;
+        selectedCategory = btn.dataset.category || ""; // all
+
+        const url = new URL(window.location);
+        if (selectedCategory)
+            url.searchParams.set("category", selectedCategory);
+        else
+            url.searchParams.delete("category");
+
+        window.history.pushState({}, "", url);
+
         applyFilters();
     });
 });
@@ -188,4 +201,20 @@ nextBtn.onclick = () => {
 
 /* ========= Init ========= */
 
-loadStories();
+/* ========= Init ========= */
+
+const categoryFromURL = getCategoryFromURL();
+
+loadStories().then(() => {
+
+    selectedCategory = categoryFromURL || ""; // all
+
+    document.querySelectorAll("#categoryButtons button").forEach(btn => {
+        btn.classList.toggle(
+            "active",
+            btn.dataset.category === selectedCategory
+        );
+    });
+
+    applyFilters();
+});
