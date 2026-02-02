@@ -277,7 +277,6 @@ addPlugin({
     render:m=>`
         <span class="icon">
             <img src="${m[1]}" alt="${m[2]}">
-            <small>${m[2]}</small>
         </span>`
 });
 
