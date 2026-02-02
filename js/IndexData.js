@@ -74,7 +74,7 @@ async function loadStories() {
 
         filteredList = [...storiesList];
         hideLoading();
-        renderPage();
+        
     } catch (err) {
         console.error("Firebase Error:", err);
     }
@@ -145,7 +145,8 @@ function applyFilters() {
         const writer = (story.name_writer || "").toLowerCase();
 
         const matchCategory =
-            selectedCategory === "" || story[selectedCategory] === "on";
+    selectedCategory === "" ||
+    (story[selectedCategory] && story[selectedCategory] === "on");
 
         const matchSearch =
             search === "" ||
@@ -165,13 +166,15 @@ function applyFilters() {
 searchInput.addEventListener("input", applyFilters);
 
 document.querySelectorAll("#categoryButtons button").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+
+        e.stopPropagation(); // ⛔ يمنع إغلاق الـ Drawer
 
         document.querySelectorAll("#categoryButtons button")
             .forEach(b => b.classList.remove("active"));
 
         btn.classList.add("active");
-        selectedCategory = btn.dataset.category || ""; // all
+        selectedCategory = btn.dataset.category || "";
 
         const url = new URL(window.location);
         if (selectedCategory)
@@ -182,6 +185,7 @@ document.querySelectorAll("#categoryButtons button").forEach(btn => {
         window.history.pushState({}, "", url);
 
         applyFilters();
+        closeDrawer();
     });
 });
 
@@ -201,13 +205,15 @@ nextBtn.onclick = () => {
 
 /* ========= Init ========= */
 
-/* ========= Init ========= */
-
 const categoryFromURL = getCategoryFromURL();
 
 loadStories().then(() => {
 
-    selectedCategory = categoryFromURL || ""; // all
+    // لو التصنيف غير موجود أو غير صحيح → all
+    selectedCategory =
+        categoryFromURL && categoriesArabic[categoryFromURL]
+            ? categoryFromURL
+            : "";
 
     document.querySelectorAll("#categoryButtons button").forEach(btn => {
         btn.classList.toggle(
@@ -215,6 +221,15 @@ loadStories().then(() => {
             btn.dataset.category === selectedCategory
         );
     });
+
+    // تحديث الرابط ليكون نظيف
+    const url = new URL(window.location);
+    if (selectedCategory)
+        url.searchParams.set("category", selectedCategory);
+    else
+        url.searchParams.delete("category");
+
+    window.history.replaceState({}, "", url);
 
     applyFilters();
 });
