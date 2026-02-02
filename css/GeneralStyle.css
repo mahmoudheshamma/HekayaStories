@@ -137,6 +137,16 @@ footer img{
     border-bottom: 2px solid white;
 }
 
+#drawer button{
+    padding: 6px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold; 
+}
+
 .category-bar{
     display: grid;
     flex-wrap: wrap;

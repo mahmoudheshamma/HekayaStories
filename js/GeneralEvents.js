@@ -38,6 +38,10 @@ function GoToHome() {
     window.location.href = "../index.html";
 }
 
+function GoToTellYourStory() {
+    window.location.href = "../html/StoryShow.html?slug=story-أخبرنا-قصتك";
+}
+
 // Dark Mode
 if (darkModeToggle) {
 
