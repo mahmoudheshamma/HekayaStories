@@ -3,6 +3,7 @@ import {
     ref,
     get
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
 
 /* ========= Variables ========= */
 
@@ -232,4 +233,5 @@ loadStories().then(() => {
     window.history.replaceState({}, "", url);
 
     applyFilters();
+    initViews("web" ,"heyaka_story");
 });

@@ -39,6 +39,7 @@ main.content {
 .story-card {
     background-color: #ffffff;
     border-radius: 15px;
+    padding: 30px 25px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     color: #000;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -95,7 +96,7 @@ body.dark-mode #path .separator {
 #name_story {
     font-size: clamp(26px, 4vw, 36px);
     font-weight: 800;
-    margin: 5px 0;
+    margin: 15px 0;
     line-height: 1.2;
     color: #222;
 }
@@ -126,10 +127,12 @@ body.dark-mode #name_story {
     display: flex;
     align-items: center;
     gap: 8px;
+    
     font-size: 14px;
 }
 
 body.dark-mode .views-box {
+    
     color: #fff;
 }
 

@@ -1,5 +1,5 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
-import { initStoryViews, onStoryViewsUpdate, getStoryViews } from './ViewsManager.js';
+import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
 
 const pathEl = document.getElementById("path"); // DOM element للمسار
 const name_story = document.getElementById("name_story");
@@ -133,12 +133,12 @@ function render(story) {
     renderBreadcrumb(story);
 
     // StoryShow.js
-    initStoryViews(story.id_story);
+    initViews("story" ,story.id_story);
 
-    // تحديث المشاهدات مباشرة
-    onStoryViewsUpdate((views) => {
-        document.getElementById("views").textContent = views;
-    });
+   (async () => {
+      const count = await getViews("story", story.id_story);
+      document.getElementById("views").textContent = count;
+    })();
 
     hideLoading();
 }
