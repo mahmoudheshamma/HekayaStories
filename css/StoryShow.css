@@ -142,7 +142,7 @@ body.dark-mode .views-box {
 
 /* ===== Story Content ===== */
 .story-content {
-    padding: 25px;
+    padding: 10px;
     border-radius: 10px;
     line-height: 1.9;
     font-size: 17px;
@@ -159,7 +159,7 @@ body.dark-mode .story-content {
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
     .story-card {
-        padding: 20px 15px;
+        padding: 15px 10px;
     }
 
     #name_story {
@@ -179,7 +179,7 @@ body.dark-mode .story-content {
 
     .story-content {
         font-size: 16px;
-        padding: 20px;
+        padding: 10px;
     }
 }
 
