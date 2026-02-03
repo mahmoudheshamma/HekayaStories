@@ -11,18 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontValue  = document.getElementById("fontValue");
   const lineValue  = document.getElementById("lineValue");
 
-  const content = document.querySelector(".content");
-
-  // حماية كاملة
-  if (!dialog || !overlay || !toggleBtn || !content) return;
+  const mainContent = document.querySelector("main");
+  if (!dialog || !overlay || !toggleBtn || !mainContent) return;
 
   /* ================== Load Settings ================== */
   let fontSize   = parseInt(localStorage.getItem("fontSize")) || 18;
   let lineHeight = parseFloat(localStorage.getItem("lineHeight")) || 1.6;
 
   const applySettings = () => {
-    content.style.fontSize = fontSize + "px";
-    content.style.lineHeight = lineHeight;
+    document.documentElement.style.setProperty('--main-font-size', fontSize + 'px');
+    document.documentElement.style.setProperty('--main-line-height', lineHeight);
 
     fontSlider.value = fontSize;
     lineSlider.value = lineHeight;
@@ -34,6 +32,40 @@ document.addEventListener("DOMContentLoaded", () => {
   applySettings();
 
   /* ================== Dialog Logic ================== */
+  const autoBtn = document.getElementById("autoAdjust");
+
+autoBtn.addEventListener("click", () => {
+
+  // حجم الشاشة أو عنصر main
+  const mainWidth = mainContent.offsetWidth;
+  const mainHeight = mainContent.offsetHeight;
+
+  // حساب حجم الخط الأمثل (مثال: 2.5% من عرض العنصر)
+  let autoFontSize = Math.round(mainWidth * 0.025); // يمكن تعديل النسبة حسب التصميم
+  autoFontSize = Math.min(Math.max(autoFontSize, 12), 60); // ضبط ضمن الحدود
+
+  // ارتفاع السطر نسبة لحجم الخط (مثال: 1.4 إلى 1.8)
+  let autoLineHeight = parseFloat((autoFontSize * 0.09 + 1).toFixed(1));
+  autoLineHeight = Math.min(Math.max(autoLineHeight, 1), 4);
+
+  // تحديث القيم
+  fontSize = autoFontSize;
+  lineHeight = autoLineHeight;
+
+  document.documentElement.style.setProperty('--main-font-size', fontSize + 'px');
+  document.documentElement.style.setProperty('--main-line-height', lineHeight);
+
+  fontSlider.value = fontSize;
+  lineSlider.value = lineHeight;
+
+  fontValue.textContent = fontSize;
+  lineValue.textContent = lineHeight;
+
+  // حفظ في localStorage
+  localStorage.setItem("fontSize", fontSize);
+  localStorage.setItem("lineHeight", lineHeight);
+});
+  
   const openDialog = () => {
     dialog.classList.remove("hidden");
     overlay.classList.remove("hidden");
@@ -51,41 +83,40 @@ document.addEventListener("DOMContentLoaded", () => {
   overlay.addEventListener("click", closeDialog);
   if (closeBtn) closeBtn.addEventListener("click", closeDialog);
 
-  /* ESC */
   document.addEventListener("keydown", e => {
-    if (e.key === "Escape" && !dialog.classList.contains("hidden")) {
-      closeDialog();
-    }
+    if (e.key === "Escape" && !dialog.classList.contains("hidden")) closeDialog();
   });
 
-  /* Mobile Back */
   window.addEventListener("popstate", () => {
-    if (!dialog.classList.contains("hidden")) {
-      closeDialog();
-    }
+    if (!dialog.classList.contains("hidden")) closeDialog();
   });
 
   /* ================== Sliders ================== */
-  fontSlider.addEventListener("input", () => {
+  const updateFont = () => {
     fontSize = parseInt(fontSlider.value);
     fontValue.textContent = fontSize;
-    content.style.fontSize = fontSize + "px";
+    document.documentElement.style.setProperty('--main-font-size', fontSize + 'px');
     localStorage.setItem("fontSize", fontSize);
-  });
+  };
 
-  lineSlider.addEventListener("input", () => {
+  const updateLine = () => {
     lineHeight = parseFloat(lineSlider.value);
     lineValue.textContent = lineHeight;
-    content.style.lineHeight = lineHeight;
+    document.documentElement.style.setProperty('--main-line-height', lineHeight);
     localStorage.setItem("lineHeight", lineHeight);
-  });
+  };
 
-  /* Reset */
+  fontSlider.addEventListener("input", () => requestAnimationFrame(updateFont));
+  lineSlider.addEventListener("input", () => requestAnimationFrame(updateLine));
+
+  /* ================== Reset ================== */
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       localStorage.removeItem("fontSize");
       localStorage.removeItem("lineHeight");
-      location.reload();
+      fontSize = 18;
+      lineHeight = 1.6;
+      applySettings();
     });
   }
 

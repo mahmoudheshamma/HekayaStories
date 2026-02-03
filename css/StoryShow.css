@@ -1,3 +1,8 @@
+:root {
+  --main-font-size: 18px;
+  --main-line-height: 1.6;
+}
+
 /* ===== Global ===== */
 * {
     box-sizing: border-box;
@@ -25,6 +30,11 @@ body.dark-mode {
     justify-content: center;
 }
 
+main, main *{
+    font-size: var(--main-font-size) !important;
+    line-height: var(--main-line-height) !important;
+}
+
 /* ===== Main Content ===== */
 main.content {
     margin: 70px auto 60px auto;
@@ -36,6 +46,13 @@ main.content {
 }
 
 /* ===== Story Card ===== */
+.story-card img{
+    filter: invert(1);
+}
+
+body.dark-mode .story-card img{
+    filter: invert(0);
+}
 .story-card {
     background-color: #ffffff;
     border-radius: 15px;

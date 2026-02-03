@@ -1,348 +1,266 @@
 /* ===========================
-   ROOT
+   DESIGN SYSTEM
    =========================== */
+:root{
+    --font-main: "Cairo", system-ui;
+    --font-quran: "Amiri", serif;
 
-body .story-root{
-    font-family: "Cairo", Arial;
-    line-height: 1.8;
-    padding: 10px;
-    font-size: large;
+    /* COLORS */
+    --text-main: #1f2937;          /* نص أساسي */
+    --text-muted: #64748b;         /* نص ثانوي */
+    --primary: #6366f1;            /* أزرق عصري */
+    --primary-soft: #eef2ff;       /* خلفية خفيفة */
+    --success: #16a34a;            /* نجاح */
+    --success-bg: #e6f4ea;
+    --warning: #d97706;            /* تحذير */
+    --warning-bg: #fff7ed;
+    --bg-main: #ffffff;
+    --bg-soft: #f9fafb;
+    --border-soft: #e2e8f0;
+
+    /* BORDER RADIUS */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
 }
 
 /* ===========================
-   TEXT
+   DARK MODE COLORS
    =========================== */
-.story-root strong { font-weight: bold; }
-.story-root em { font-style: italic; }
-.story-root u { text-decoration: underline; }
-.story-root del { text-decoration: line-through; }
-mark { background-color: #fff3cd; }
-.story-root a { color: #4f46e5; text-decoration: none; }
-.story-root a:hover { text-decoration: underline; }
+body.dark-mode{
+    --bg-main: #0f172a;
+    --bg-soft: #1e293b;
+    --text-main: #e5e7eb;
+    --text-muted: #94a3b8;
+    --primary: #818cf8;
+    --primary-soft: #1e293b;
+    --success-bg: #064e3b;
+    --warning-bg: #78350f;
+    --border-soft: #334155;
+}
 
-.colored{ color:#4f46e5 }
-.story-root mark{ background:#fff3cd }
+/* ===========================
+   ROOT
+   =========================== */
+.story-root{
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    line-height: 1.95;
+    color: var(--text-main);
+    padding: 16px;
+}
+
+/* ===========================
+   HEADERS
+   =========================== */
 .story-root h1{
-    background-color: #13143a29;
-    border-radius:5px;
-    padding: 10px;
-    color: black;
-    text-shadow: 0 0 3px rgba(0,0,0,0.1);
-    font-size: 25px;
+    font-size: 1.7rem;
+    margin: 20px 0;
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--primary-soft), transparent);
+    color: var(--text-main);
+    letter-spacing: 0.5px;
+}
+
+/* ===========================
+   TEXT & LINKS
+   =========================== */
+.story-root p{
+    margin: 0 0 1.2em 0;
+}
+
+.story-root a{
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+.story-root a:hover{
+    border-bottom: 1px solid var(--primary);
+    color: #4f46e5;
+}
+
+.story-root mark{
+    background: var(--primary-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
 }
 
 /* ===========================
    BOXES
    =========================== */
-
-.box {
-    padding: 12px;
-    border-radius: 8px;
-    margin: 10px 0;
+.box{
+    background: var(--bg-soft);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin: 18px 0;
+    border-left: 5px solid transparent;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.box.info { background-color: #eef2ff; border-left: 4px solid #4f46e5; }
-.box.warn { background-color: #fff3cd; border-left: 4px solid #ff9800; }
-
-/* ===========================
-   STEP BOX
-   =========================== */
-.step {
-    background: #f0f0f0;
-    border-left: 4px solid #4caf50;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-}
-.step-title { 
-font-weight: bold;
- display: block; 
- margin-bottom: 5px;
-  }
-.step-content {
- padding-left: 10px;
-  }
-
-.tip{
-    background:#e8f5e9;
-    padding:10px;
-    border-radius:8px;
-}
-
-.story-root blockquote{
-    border-left:4px solid #4b5563;
-    justify-content: center;
-    padding-left:10px;
-    align-items: center;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-/* ===========================
-   ANSWERS
-   =========================== */
-
-.story-answer input{
-    padding:6px 10px;
-    border-radius:6px;
-    border:2px solid #ccc;
-}
-
-.story-answer input.correct{
-    border-color:#4caf50;
-    background:#e8f5e9;
-}
-
-.story-answer input.wrong{
-    border-color:#f44336;
-    background:#fdecea;
-}
-
-/* ===========================
-   TABLE
-   =========================== */
-
-.story-table{
-    width:100%;
-    border-collapse:collapse;
-    margin:15px 0;
-}
-
-.story-table th,
-.story-table td{
-    border:1px solid #ccc;
-    padding:10px;
-    text-align:center;
-}
-
-.story-table th{
-    background:#f5f5f5;
-}
-
-/* ===========================
-   ICON
-   =========================== */
-
-.icon{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-}
-
-.icon img{
-    width:20px;
-    height:20px;
-}
-
-.dialogue{
-    font-style: italic;
-    color: #c0841d;
-    font-weight: 500;
-}
-body.dark-mode .dialogue{
-    color: #fde68a;
-}
-
-
-.quran-verse-circle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: "Amiri", serif;
-    margin: 4px 0;
-}
-
-.quran-verse-circle .verse-circle {
-    width: 28px;
-    height: 28px;
-    background: #1e90ff;
-    color: white;
-    font-weight: bold;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9em;
-    box-shadow: 0 0 3px rgba(0,0,0,0.3);
-}
-
-.quran-verse-circle .verse-text {
-    font-size: 1em;
-    color: #333;
-}
-
-/* ===========================
-   ROOT – DARK MODE
-   =========================== */
-
-body.dark-mode .story-root{
-    font-family: "Cairo", Arial;
-    line-height: 1.8;
-    padding: 10px;
-    font-size: large;
-    color: #e5e7eb;
-}
-
-/* ===========================
-   TEXT – DARK MODE
-   =========================== */
-
-body.dark-mode .story-root strong { color:#f9fafb; }
-body.dark-mode .story-root em { color:#e5e7eb; }
-body.dark-mode .story-root u { text-decoration: underline; }
-body.dark-mode .story-root del { color:#9ca3af; }
-
-body.dark-mode .story-root mark{
-    background-color:#3a2f1b;
-    color:#fde68a;
-}
-
-body.dark-mode .story-root a{
-    color:#818cf8;
-    text-decoration:none;
-}
-body.dark-mode .story-root a:hover{
-    text-decoration:underline;
-}
-
-body.dark-mode .colored{ color:#818cf8 }
-
-/* ===========================
-   HEADERS
-   =========================== */
-
-body.dark-mode .story-root h1{
-    background-color:#1f2937;
-    border-radius:5px;
-    padding:10px;
-    color:#f9fafb;
-    text-shadow:none;
-    font-size:25px;
-}
-
-/* ===========================
-   BOXES – DARK MODE
-   =========================== */
+.box.info{ border-color: var(--primary); }
+.box.warn{ border-color: var(--warning); }
 
 body.dark-mode .box{
-    padding:12px;
-    border-radius:8px;
-    margin:10px 0;
-}
-
-body.dark-mode .box.info{
-    background-color:#1e293b;
-    border-left:4px solid #6366f1;
-}
-
-body.dark-mode .box.warn{
-    background-color:#3a2f1b;
-    border-left:4px solid #f59e0b;
+    box-shadow: 0 2px 6px rgba(255,255,255,0.05);
 }
 
 /* ===========================
-   STEP BOX – DARK MODE
+   STEP
    =========================== */
+.step{
+    background: var(--bg-soft);
+    border-left: 5px solid var(--success);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin: 18px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.step-title{
+    font-weight: 700;
+    margin-bottom: 6px;
+}
 
 body.dark-mode .step{
-    background:#1f2937;
-    border-left:4px solid #22c55e;
-    padding:10px;
-    margin:10px 0;
-    border-radius:6px;
-}
-
-body.dark-mode .step-title{
-    font-weight:bold;
-    color:#bbf7d0;
-}
-
-body.dark-mode .step-content{
-    padding-left:10px;
-    color:#e5e7eb;
+    box-shadow: 0 2px 6px rgba(255,255,255,0.05);
 }
 
 /* ===========================
-   TIP – DARK MODE
+   TIP
    =========================== */
-
-body.dark-mode .tip{
-    background:#064e3b;
-    padding:10px;
-    border-radius:8px;
-    color:#d1fae5;
+.tip{
+    background: var(--success-bg);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    font-weight: 500;
 }
 
 /* ===========================
    BLOCKQUOTE
    =========================== */
+.story-root blockquote{
+    background: #fffbeb;
+    border-left: 4px solid var(--warning);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--text-muted);
+    text-align: center;
+}
 
 body.dark-mode .story-root blockquote{
-    border-left:4px solid #4b5563;
-    justify-content: center;
-    align-items: center;
-    padding-left:10px;
-    text-align: center;
-    color:#d1d5db;
+    background: #1e293b;
+    color: #cbd5e1;
+    border-left-color: #f59e0b;
 }
 
 /* ===========================
-   ANSWERS – DARK MODE
+   DIALOGUE
    =========================== */
+.dialogue{
+    color: var(--warning);
+    font-style: italic;
+    font-weight: 600;
+}
+
+/* ===========================
+   TABLE
+   =========================== */
+.story-table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.story-table th{
+    background: var(--primary-soft);
+    padding: 14px;
+    font-weight: 700;
+}
+
+.story-table td{
+    padding: 14px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+/* Zebra Effect */
+.story-table tr:nth-child(even){
+    background: var(--bg-soft);
+}
+
+body.dark-mode .story-table tr:nth-child(even){
+    background: #1f2937;
+}
+
+/* ===========================
+   INPUT ANSWERS
+   =========================== */
+.story-answer input{
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-soft);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.story-answer input:focus{
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 6px rgba(99,102,241,0.5);
+}
+
+.story-answer input.correct{
+    border-color: var(--success);
+    background: var(--success-bg);
+}
+
+.story-answer input.wrong{
+    border-color: #dc2626;
+    background: #fef2f2;
+}
 
 body.dark-mode .story-answer input{
-    padding:6px 10px;
-    border-radius:6px;
-    border:2px solid #4b5563;
-    background:#111827;
-    color:#f9fafb;
-}
-
-body.dark-mode .story-answer input.correct{
-    border-color:#22c55e;
-    background:#064e3b;
-}
-
-body.dark-mode .story-answer input.wrong{
-    border-color:#ef4444;
-    background:#3f1d1d;
+    background: #111827;
+    color: #e5e7eb;
+    border-color: #374151;
 }
 
 /* ===========================
-   TABLE – DARK MODE
+   QURAN VERSE
    =========================== */
-
-body.dark-mode .story-table{
-    width:100%;
-    border-collapse:collapse;
-    margin:15px 0;
+.quran-verse-circle{
+    display: flex;
+    gap: 10px;
+    font-family: var(--font-quran);
+    align-items: center;
 }
 
-body.dark-mode .story-table th,
-body.dark-mode .story-table td{
-    border:1px solid #374151;
-    padding:10px;
-    text-align:center;
-    color:#e5e7eb;
-}
-
-body.dark-mode .story-table th{
-    background:#1f2937;
+.verse-circle{
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(145deg, var(--primary), #4338ca);
+    color: white;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* ===========================
-   ICON – DARK MODE
+   ICON
    =========================== */
-
-body.dark-mode .icon{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
+.icon img{
+    width:20px;
+    height:20px;
 }
 
 body.dark-mode .icon img{
-    width:20px;
-    height:20px;
     filter:brightness(0.9);
 }

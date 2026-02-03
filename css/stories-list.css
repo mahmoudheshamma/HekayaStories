@@ -28,13 +28,17 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    align-items: center;
+    justify-content: space-between;
 }
 .InfoCard span{
     font-size: 12px;
     padding: 4px 10px;
-    border-radius: 20px;
+    border-radius: 10px;
     background: #eceff1;
     color: #263238;
+    align-items: center;
+    text-align: center;
 }
 
 .FooterCard{
