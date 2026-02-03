@@ -70,8 +70,13 @@ font-weight: bold;
 }
 
 .story-root blockquote{
+    border-left:4px solid #4b5563;
     justify-content: center;
+    padding-left:10px;
     align-items: center;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /* ===========================
@@ -275,7 +280,10 @@ body.dark-mode .tip{
 
 body.dark-mode .story-root blockquote{
     border-left:4px solid #4b5563;
+    justify-content: center;
+    align-items: center;
     padding-left:10px;
+    text-align: center;
     color:#d1d5db;
 }
 

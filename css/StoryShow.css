@@ -45,11 +45,6 @@ main.content {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.story-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-}
-
 body.dark-mode .story-card {
     background: linear-gradient(135deg, #1e293b, #020617);
     color: #fff;
@@ -114,7 +109,6 @@ body.dark-mode #name_story {
     font-size: 15px;
     opacity: 0.9;
     gap: 10px;
-    margin-top: 10px;
 }
 
 .story-info span {
