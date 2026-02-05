@@ -12,7 +12,7 @@ export async function getStoryById(id) {
         const snapshot = await get(ref(database, `story/${id}`));
         return snapshot.exists() ? { id, ...snapshot.val() } : null;
     } catch (e) {
-        console.error("getStoryById error:", e);
+        window.location.href = "../html/error.html";
         return null;
     }
 }
@@ -40,7 +40,7 @@ export async function getStoryBySlug(slug) {
 
         return { id: key, ...data[key] };
     } catch (e) {
-        console.error("getStoryBySlug error:", e);
+        window.location.href = "../html/error.html";
         return null;
     }
 }

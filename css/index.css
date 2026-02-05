@@ -1,6 +1,12 @@
+@font-face {
+    font-family: "Font";
+    src: url("../font/arabic_english_2.ttf") format("truetype");
+}
+
 *{
     box-sizing: border-box;
     direction: rtl;
+    font-family: "Font", Arial, sans-serif;
 }
 body {
     margin: 0;

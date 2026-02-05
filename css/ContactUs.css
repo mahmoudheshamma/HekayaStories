@@ -1,0 +1,91 @@
+@font-face {
+    font-family: "Font";
+    src: url("../font/arabic_english_2.ttf") format("truetype");
+}
+
+* {  
+    box-sizing: border-box;  
+    direction: rtl;  
+    margin: 0;  
+    padding: 0;  
+    font-family: "Font", Arial, sans-serif;
+}
+
+body {  
+    background-color: #ffffff;  
+    color: #000;  
+    font-family: Arial, sans-serif;  
+    line-height: 1.6;  
+    transition: background 0.3s, color 0.3s;  
+}
+
+body.dark-mode {  
+    background-color: #010510;  
+    color: #fff;  
+}
+
+/* تصميم النموذج */
+.contact-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: background 0.3s, color 0.3s;
+    align-content: center;
+}
+
+body.dark-mode .contact-container {
+    background: #11131a;
+}
+
+.contact-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact-container form input,
+.contact-container form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+
+body.dark-mode .contact-container form input,
+body.dark-mode .contact-container form textarea {
+    background-color: #1a1a28;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+.contact-container form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-container form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-container form button:hover {
+    background-color: #0056b3;
+}
+
+#form-message {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}

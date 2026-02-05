@@ -30,8 +30,8 @@ function shareSite() {
 
 // ربط الدالة مع العنصر الذي له id "shareBtn"
 document.addEventListener("DOMContentLoaded", () => {
-    const shareButton = document.getElementById("shareBtn");
-    shareButton.addEventListener("click", shareSite);
+    const shareButton = document.getElementById("shareBtn") || null;
+   if (shareButton) shareButton.addEventListener("click", shareSite);
 });
 
 function GoToHome() {
@@ -40,6 +40,13 @@ function GoToHome() {
 
 function GoToTellYourStory() {
     window.location.href = "../html/StoryShow.html?slug=story-أخبرنا-قصتك";
+}
+
+function GoToChatUs(){
+    window.location.href = "../html/ContactUs.html";
+}
+function GoToPrivacy() {
+    window.location.href = "../html/StoryShow.html?slug=story-سياسة-خصوصية";
 }
 
 // Dark Mode

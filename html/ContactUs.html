@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تواصل معنا</title>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    emailjs.init("3_QRFtJpa4UCR7g5G");
+</script>
+    
+</head>
+
+<link rel="stylesheet" href="../css/GeneralStyle.css">
+<link rel="stylesheet" href="../css/ContactUs.css">
+
+<body>
+    
+    <header>
+            <div style="justify-content:center" class="toolbar">
+                
+                <h1 onclick="GoToHome()">العلم حكاية</h1>
+                
+            </div>
+        </header>
+        
+        <footer>
+            <img id="darkMode" src="../img/dark_mode.png" alt="mode">
+            <img onclick="GoToHome()" id="home" src="../img/mainPage.png" alt="home">
+            <img id="BackToTop" src="../img/up-arrow.png" alt="up">
+        </footer>
+        
+        <div class="contact-container">
+        <h2>تواصل معنا</h2>
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="اسمك" required>
+            <input type="email" name="email" placeholder="بريدك الإلكتروني" required>
+            <textarea name="message" placeholder="رسالتك" required></textarea>
+            <button type="submit">إرسال</button>
+            <p id="form-message"></p>
+        </form>
+        
+    </div>
+    
+    <script src="../js/GeneralEvents.js" defer></script>
+    <script src="../js/ContactUs.js"></script>
+    
+</body>
+</html>

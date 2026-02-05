@@ -1,8 +1,13 @@
+@font-face {
+    font-family: "Font";
+    src: url("../font/arabic_english_2.ttf") format("truetype");
+}
+
 /* ===========================
    DESIGN SYSTEM
    =========================== */
 :root{
-    --font-main: "Cairo", system-ui;
+    --font-main: "Amiri", serif;
     --font-quran: "Amiri", serif;
 
     /* COLORS */

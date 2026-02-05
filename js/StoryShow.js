@@ -100,14 +100,15 @@ try {
     if (slug) story = await getStoryBySlug(slug);
     else if (id) story = await getStoryById(id);
 } catch (err) {
-    contentStory.textContent = "حدث خطأ أثناء تحميل القصة.";
-    console.error(err);
+    // error
+    window.location.href = "../html/error.html";
 }
 
 if (story) {
     render(story);
 } else {
-    contentStory.textContent = "القصة غير موجودة.";
+    //Not Found
+    window.location.href = "../html/error.html";
 }
 
 // ======================================
@@ -138,7 +139,7 @@ function render(story) {
    (async () => {
       const count = await getViews("story", story.id_story);
       document.getElementById("views").textContent = count;
-    })();
+    })();    
 
     hideLoading();
 }
