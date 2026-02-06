@@ -243,6 +243,11 @@ addPlugin({
     regex: /^;;;+$/gm,
     render: () => `<div class="space"></div>`
 });
+addPlugin({
+    name: "spaceA",
+    regex: /^؛؛؛+$/gm,
+    render: () => `<div class="space"></div>`
+});
 
 // ::: space_line
 addPlugin({
