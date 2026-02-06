@@ -1,5 +1,10 @@
 @font-face {
-    font-family: "Font";
+    font-family: "Quran";
+    src: url("../font/Quran.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Hekaya";
     src: url("../font/arabic_english_2.ttf") format("truetype");
 }
 
@@ -7,14 +12,14 @@
    DESIGN SYSTEM
    =========================== */
 :root{
-    --font-main: "Amiri", serif;
-    --font-quran: "Amiri", serif;
+    --font-main: "Hekaya", serif;
+    --font-quran: "Quran", serif;
 
     /* COLORS */
     --text-main: #1f2937;          /* نص أساسي */
     --text-muted: #64748b;         /* نص ثانوي */
     --primary: #6366f1;            /* أزرق عصري */
-    --primary-soft: #eef2ff;       /* خلفية خفيفة */
+    --primary-soft: #dbe4ff;       /* خلفية خفيفة */
     --success: #16a34a;            /* نجاح */
     --success-bg: #e6f4ea;
     --warning: #d97706;            /* تحذير */
@@ -26,7 +31,7 @@
     /* BORDER RADIUS */
     --radius-sm: 6px;
     --radius-md: 10px;
-    --radius-lg: 16px;
+    --radius-lg: 13px;
 }
 
 /* ===========================
@@ -43,14 +48,16 @@ body.dark-mode{
     --warning-bg: #78350f;
     --border-soft: #334155;
 }
-
+*{
+    font-family: var(--font-main);
+}
 /* ===========================
    ROOT
    =========================== */
 .story-root{
-    font-family: var(--font-main);
-    font-size: 1.1rem;
-    line-height: 1.95;
+    
+    font-size: 1.5rem;
+    line-height: 2;
     color: var(--text-main);
     padding: 16px;
 }
@@ -63,7 +70,7 @@ body.dark-mode{
     margin: 20px 0;
     padding: 16px;
     border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, var(--primary-soft), transparent);
+    background: linear-gradient(135deg, var(--primary-soft), #c4b5fd);
     color: var(--text-main);
     letter-spacing: 0.5px;
 }
@@ -73,6 +80,14 @@ body.dark-mode{
    =========================== */
 .story-root p{
     margin: 0 0 1.2em 0;
+}
+
+.story-root space{
+    
+}
+
+..story-root big{
+    
 }
 
 .story-root a{

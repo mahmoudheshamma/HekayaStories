@@ -10,17 +10,16 @@
 
 /* ===== Global ===== */
 * {
+    
     box-sizing: border-box;
     direction: rtl;
     margin: 0;
     padding: 0;
-    font-family: "Font", Arial, sans-serif;
 }
 
 body {
     background-color: #ffffff;
     color: #000;
-    font-family: Arial, sans-serif;
     line-height: 1.6;
     transition: background 0.3s, color 0.3s;
 }
@@ -75,7 +74,6 @@ body.dark-mode .story-card {
 
 /* ===== Breadcrumb ===== */
 #path {
-    font-family: Arial, sans-serif;
     font-size: 14px;
     margin-bottom: 12px;
     color: #555;
@@ -130,7 +128,6 @@ body.dark-mode #name_story {
     align-items: center;
     flex-wrap: wrap;
     font-size: 15px;
-    opacity: 0.9;
     gap: 10px;
 }
 
@@ -144,7 +141,6 @@ body.dark-mode #name_story {
     display: flex;
     align-items: center;
     gap: 8px;
-    
     font-size: 14px;
 }
 
