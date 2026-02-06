@@ -197,14 +197,14 @@ addPlugin({
 addPlugin({
     name: "box-info",
     regex: /\[info\]([\s\S]*?)\[\/info\]/g,
-    render: m => `<div class="box info">${m[1]}</div>`
+    render: m => `<div class="box info">${parseInline(m[1])}</div>`
 });
 
 // Warning Box: [warn]content[/warn]
 addPlugin({
     name: "box-warn",
     regex: /\[warn\]([\s\S]*?)\[\/warn\]/g,
-    render: m => `<div class="box warn">⚠️ ${m[1]}</div>`
+    render: m => `<div class="box warn">⚠️ ${parseInline(m[1])}</div>`
 });
 
 // Step Box: [step:title]content[/step]
@@ -213,8 +213,8 @@ addPlugin({
     regex: /\[step:(.*?)\]([\s\S]*?)\[\/step\]/g,
     render: m => `
         <div class="step">
-            <span class="step-title">${m[1]}</span>
-            <div class="step-content">${m[2]}</div>
+            <span class="step-title">${parseInline(m[1])}</span>
+            <div class="step-content">${parseInline(m[2])}</div>
         </div>`
 });
 
@@ -222,24 +222,12 @@ addPlugin({
 addPlugin({
     name: "quote",
     priority: 4,
-    regex: />>>\s*\n([\s\S]*?)\n<<<$/gm,
+    regex: />>>\s*([\s\S]*?)\s*<<</g,
     render: m => `
         <blockquote>
             ${escapeHTML(m[1])}
         </blockquote>
     `
-});
-
-/*. LIST
-- عنصر
-∆ عنصر
-1. عنصر
-*/
-addPlugin({
-    name:"list",
-    regex:/^([\-∆»]|\d+\.)\s+(.*)$/gm,
-    priority:2,
-    render:m=>`<li>${m[2]}</li>`
 });
 
 // new line :;:
