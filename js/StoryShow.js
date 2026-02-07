@@ -48,7 +48,7 @@ function getCategoryString(story) {
             list.push(categoriesArabic[key]);
         }
     }
-    return list.join("، ");
+    return list.join(" - ");
 }
 
 // دالة لإنشاء مسار تنقّل احترافي

@@ -306,6 +306,18 @@ addPlugin({
 
 /*====≠========*/
 
+function parseInline(text){
+    let out = text || "";
+
+    StoryPlugins
+        .filter(p => p.name !== "table") // تجنب البلوكيات الكبيرة لو حابب
+        .forEach(p=>{
+            out = out.replace(p.regex,(...m)=>p.render(m));
+        });
+
+    return out;
+}
+
 function parseStory(text){
     let output = text || "";
 

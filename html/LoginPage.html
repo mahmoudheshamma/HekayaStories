@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول</title>
+    
+    <link rel="stylesheet" href="../css/GeneralStyle.css">
+<link rel="stylesheet" href="../css/LoginPage.css">
+
+</head>
+    
+<body>
+    
+    <header>
+            <div style="justify-content:center" class="toolbar">
+                
+                <h1 onclick="GoToHome()">العلم حكاية</h1>
+                
+            </div>
+        </header>
+        
+        
+        <div class="card" id="authBox">
+  <h2>تسجيل الدخول</h2>
+
+  <input type="email" id="email" placeholder="البريد الإلكتروني" />
+  <input type="password" id="password" placeholder="كلمة المرور" />
+
+  <button class="login" onclick="loginEmail()">دخول</button>
+  <button class="signup" onclick="signupEmail()">إنشاء حساب</button>
+
+  <p class="link" onclick="resetPassword()">نسيت كلمة المرور؟</p>
+
+  <hr />
+
+  <button class="google" onclick="loginGoogle()">Google</button>
+  <button class="facebook" onclick="loginFacebook()">Facebook</button>
+</div>
+        
+        <script type="module" src="../js/LoginPage.js"></script>
+        <script src="../js/DialogLoading.js"></script>
+    
+</body>
+</html>

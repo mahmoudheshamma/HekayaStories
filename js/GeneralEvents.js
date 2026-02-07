@@ -42,6 +42,10 @@ function GoToTellYourStory() {
     window.location.href = "../html/StoryShow.html?slug=story-أخبرنا-قصتك";
 }
 
+function GoToProfile() {
+    window.location.href = "../html/LoginPage.html";
+}
+
 function GoToFacebook () {
     
 }
