@@ -1,5 +1,5 @@
 import { database } from "./FirebaseConfig.js";
-import { ref, get, set, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { ref, get, set, remove } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 
 export async function createUserInDB(user) {
@@ -11,6 +11,10 @@ export async function createUserInDB(user) {
     role: "user",
     likes: 0,
     followers: 0,
+    username: "",
+    verify: false,
+    premium:  false,
+    block: false,
     name: user.displayName || "مستخدم غير معروف",
     email: user.email || "",
     photo: user.photoURL || "",
