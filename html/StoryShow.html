@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/StoryShow.css">    
     
     <link rel="stylesheet" href="../css/StoryRender.css">
+    <link rel="stylesheet" href="../css/CommentsSystem.css">
     
 </head>
 
@@ -98,6 +99,20 @@
             Story content goes here...
         </p>
     </article>
+    
+    <div class="Comments_Container">
+        
+        <div id="comments">
+            
+        </div>
+        
+        <div class="card">
+        <textarea id="commentInput" rows="3" placeholder="اكتب تعليقك..."></textarea>
+        <button id="btnComment" onclick="addComment()">إرسال تعليق</button>
+        <p id="loginWarn" style="color:#f87171;display:none">يجب تسجيل الدخول</p>
+    </div>
+        
+    </div>
 
 </main>
     
@@ -108,7 +123,7 @@
      <script src="../js/StoryRender.js"></script>
      <script type="module" src="../js/StoryShow.js"></script>
      <script src="../js/GeneralEvents.js" defer></script>
-          
+     <script type="module" src="../js/CommentsSystem.js" defer></script>
                     
     
 </body>

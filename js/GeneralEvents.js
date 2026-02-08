@@ -43,7 +43,17 @@ function GoToTellYourStory() {
 }
 
 function GoToProfile() {
-    window.location.href = "../html/LoginPage.html";
+
+  const loggedIn = window.isLoggedIn();
+  
+  if (loggedIn) {
+  alert("قريباً");
+    // console.log("المستخدم مسجل دخول ✅");
+  } else {
+    // console.log("لا يوجد مستخدم مسجل دخول ❌");
+    window.location.href = "../html/LoginPage.html";  
+  }
+  
 }
 
 function GoToFacebook () {

@@ -9,6 +9,7 @@ import {
   sendPasswordResetEmail,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { createUserInDB } from "./DatabaseUser.js";
 
 const emailEl = document.getElementById("email");
 const passwordEl = document.getElementById("password");
@@ -47,7 +48,7 @@ window.loginEmail = async () => {
   if (!validateInputs()) return;
 
   try {
-    await signInWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
+    const res = await signInWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
 
     await createUserInDB(res.user);
 
@@ -82,7 +83,7 @@ window.signupEmail = async () => {
 window.loginGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const res = await signInWithPopup(auth, provider);
 
     await createUserInDB(res.user);
 
@@ -119,9 +120,33 @@ window.resetPassword = async () => {
 
 /* ========= حماية الصفحات ========= */
 onAuthStateChanged(auth, (user) => {
-  const isHome = location.pathname.includes("home");
+  const isHome = location.pathname.includes("index");
 
   if (!user && isHome) {
     location.href = "../index.html";
   }
 });
+
+window.isLoggedIn = () => {
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe(); // إلغاء الاشتراك فور الحصول على النتيجة
+      if (user) {
+        resolve(true);  // المستخدم مسجل دخول
+      } else {
+        resolve(false); // لا يوجد مستخدم مسجل دخول
+      }
+    });
+  });
+};
+
+
+window.getCurrentUID = () => {
+  const user = auth.currentUser; // المستخدم الحالي
+  if (user) {
+    return user.uid;
+  } else {
+    console.warn("لا يوجد مستخدم مسجل دخول حالياً");
+    return null;
+  }
+};

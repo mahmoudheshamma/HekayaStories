@@ -15,9 +15,10 @@ export async function createUserInDB(user) {
     verify: false,
     premium:  false,
     block: false,
+    canComment: true,
     name: user.displayName || "مستخدم غير معروف",
     email: user.email || "",
-    photo: user.photoURL || "",
+    photo: user.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png",
     time: Date.now()
   });
 }
