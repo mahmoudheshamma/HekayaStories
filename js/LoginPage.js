@@ -1,5 +1,4 @@
-import { database, auth, app } from "./FirebaseConfig.js";
-import { createUserInDB } from "./DatabaseUser.js";
+import { auth } from "./FirebaseConfig.js";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -9,57 +8,141 @@ import {
   signOut,
   sendPasswordResetEmail,
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 const emailEl = document.getElementById("email");
 const passwordEl = document.getElementById("password");
 
-// تسجيل دخول ايميل
+/* ========= رسائل الأخطاء ========= */
+function getErrorMessage(error) {
+  switch (error.code) {
+    case "auth/invalid-email":
+      return "البريد الإلكتروني غير صحيح";
+    case "auth/user-not-found":
+      return "المستخدم غير موجود";
+    case "auth/wrong-password":
+      return "كلمة المرور غير صحيحة";
+    case "auth/email-already-in-use":
+      return "البريد مستخدم مسبقاً";
+    case "auth/weak-password":
+      return "كلمة المرور ضعيفة جداً";
+    case "auth/popup-closed-by-user":
+      return "تم إغلاق نافذة تسجيل الدخول";
+    default:
+      return "حدث خطأ غير متوقع: " + error.message;
+  }
+}
+
+/* ========= تحقق من الإدخال ========= */
+function validateInputs() {
+  if (!emailEl.value || !passwordEl.value) {
+    alert("اكتب البريد وكلمة المرور أولاً");
+    return false;
+  }
+  return true;
+}
+
+/* ========= تسجيل دخول بالبريد ========= */
 window.loginEmail = async () => {
-  await signInWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
-  location.href = "../index.html";
+  if (!validateInputs()) return;
+
+  try {
+    await signInWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
+
+    // HINT:
+    // هنا يمكنك لاحقًا إنشاء بيانات المستخدم داخل قاعدة البيانات
+    // مثل: Firestore أو Realtime Database بعد نجاح تسجيل الدخول
+
+    location.href = "../index.html";
+  } catch (error) {
+    alert(getErrorMessage(error));
+    console.error(error);
+  }
 };
 
-// إنشاء حساب
+/* ========= إنشاء حساب ========= */
 window.signupEmail = async () => {
-  const res = await createUserWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
-  await createUserInDB(res.user);
-  location.href = "../index.html";
+  if (!validateInputs()) return;
+
+  try {
+    const res = await createUserWithEmailAndPassword(
+      auth,
+      emailEl.value,
+      passwordEl.value
+    );
+
+    // HINT:
+    // بعد إنشاء الحساب يمكنك هنا إضافة بيانات المستخدم إلى قاعدة البيانات
+    // مثال: حفظ الاسم، الصورة، تاريخ الإنشاء... إلخ
+
+    location.href = "../index.html";
+  } catch (error) {
+    alert(getErrorMessage(error));
+    console.error(error);
+  }
 };
 
-// تسجيل جوجل
+/* ========= تسجيل دخول Google ========= */
 window.loginGoogle = async () => {
-  const provider = new GoogleAuthProvider();
-  const res = await signInWithPopup(auth, provider);
-  await createUserInDB(res.user);
-  location.href = "../index.html";
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+
+    // HINT:
+    // يمكن هنا إنشاء سجل للمستخدم في قاعدة البيانات إذا لم يكن موجودًا
+
+    location.href = "../index.html";
+  } catch (error) {
+    alert(getErrorMessage(error));
+    console.error(error);
+  }
 };
 
-// تسجيل فيسبوك
+/* ========= تسجيل دخول Facebook ========= */
 window.loginFacebook = async () => {
-  const provider = new FacebookAuthProvider();
-  const res = await signInWithPopup(auth, provider);
-  await createUserInDB(res.user);
-  location.href = "../index.html";
+  try {
+    const provider = new FacebookAuthProvider();
+    await signInWithPopup(auth, provider);
+
+    // HINT:
+    // هنا يمكن إضافة بيانات المستخدم إلى قاعدة البيانات لاحقًا
+
+    location.href = "../index.html";
+  } catch (error) {
+    alert(getErrorMessage(error));
+    console.error(error);
+  }
 };
 
-// تسجيل خروج
+/* ========= تسجيل خروج ========= */
 window.logout = async () => {
-  await signOut(auth);
-  location.href = "../index.html";
+  try {
+    await signOut(auth);
+    location.href = "../index.html";
+  } catch (error) {
+    alert("فشل تسجيل الخروج");
+    console.error(error);
+  }
 };
 
-// نسيت كلمة المرور
+/* ========= إعادة تعيين كلمة المرور ========= */
 window.resetPassword = async () => {
   if (!emailEl.value) return alert("اكتب الايميل أولاً");
-  await sendPasswordResetEmail(auth, emailEl.value);
-  alert("تم إرسال رابط الاستعادة إلى بريدك الإلكتروني");
+
+  try {
+    await sendPasswordResetEmail(auth, emailEl.value);
+    alert("تم إرسال رابط الاستعادة إلى بريدك الإلكتروني");
+  } catch (error) {
+    alert(getErrorMessage(error));
+    console.error(error);
+  }
 };
 
-// التحقق من تسجيل الدخول
+/* ========= حماية الصفحات ========= */
 onAuthStateChanged(auth, (user) => {
-  if (!user && location.pathname.includes("home")) {
+  const isHome = location.pathname.includes("home");
+
+  if (!user && isHome) {
     location.href = "../index.html";
   }
 });
