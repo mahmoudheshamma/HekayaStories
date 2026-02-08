@@ -49,9 +49,7 @@ window.loginEmail = async () => {
   try {
     await signInWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
 
-    // HINT:
-    // هنا يمكنك لاحقًا إنشاء بيانات المستخدم داخل قاعدة البيانات
-    // مثل: Firestore أو Realtime Database بعد نجاح تسجيل الدخول
+    await createUserInDB(res.user);
 
     location.href = "../index.html";
   } catch (error) {
@@ -71,9 +69,7 @@ window.signupEmail = async () => {
       passwordEl.value
     );
 
-    // HINT:
-    // بعد إنشاء الحساب يمكنك هنا إضافة بيانات المستخدم إلى قاعدة البيانات
-    // مثال: حفظ الاسم، الصورة، تاريخ الإنشاء... إلخ
+    await createUserInDB(res.user);
 
     location.href = "../index.html";
   } catch (error) {
@@ -88,24 +84,7 @@ window.loginGoogle = async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
 
-    // HINT:
-    // يمكن هنا إنشاء سجل للمستخدم في قاعدة البيانات إذا لم يكن موجودًا
-
-    location.href = "../index.html";
-  } catch (error) {
-    alert(getErrorMessage(error));
-    console.error(error);
-  }
-};
-
-/* ========= تسجيل دخول Facebook ========= */
-window.loginFacebook = async () => {
-  try {
-    const provider = new FacebookAuthProvider();
-    await signInWithPopup(auth, provider);
-
-    // HINT:
-    // هنا يمكن إضافة بيانات المستخدم إلى قاعدة البيانات لاحقًا
+    await createUserInDB(res.user);
 
     location.href = "../index.html";
   } catch (error) {
