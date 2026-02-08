@@ -1,28 +1,65 @@
-import { database, auth } from "./FirebaseConfig.js";
+import { database, auth, app } from "./FirebaseConfig.js";
+import { createUserInDB } from "./DatabaseUser.js";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  signOut,
+  sendPasswordResetEmail,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 const emailEl = document.getElementById("email");
 const passwordEl = document.getElementById("password");
 
-function loginEmail(){auth.signInWithEmailAndPassword(emailEl.value,passwordEl.value)}
+// تسجيل دخول ايميل
+window.loginEmail = async () => {
+  await signInWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
+  location.href = "../index.html";
+};
 
-function signupEmail(){
-  auth.createUserWithEmailAndPassword(emailEl.value,passwordEl.value)
-  .then(res=>createUserInDB(res.user,true))
-}
+// إنشاء حساب
+window.signupEmail = async () => {
+  const res = await createUserWithEmailAndPassword(auth, emailEl.value, passwordEl.value);
+  await createUserInDB(res.user);
+  location.href = "../index.html";
+};
 
-function loginGoogle(){
-  const p=new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(p).then(res=>createUserInDB(res.user,false))
-}
+// تسجيل جوجل
+window.loginGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  const res = await signInWithPopup(auth, provider);
+  await createUserInDB(res.user);
+  location.href = "../index.html";
+};
 
-function loginFacebook(){
-  const p=new firebase.auth.FacebookAuthProvider();
-  auth.signInWithPopup(p).then(res=>createUserInDB(res.user,false))
-}
+// تسجيل فيسبوك
+window.loginFacebook = async () => {
+  const provider = new FacebookAuthProvider();
+  const res = await signInWithPopup(auth, provider);
+  await createUserInDB(res.user);
+  location.href = "../index.html";
+};
 
-function logout(){auth.signOut().then(()=>location.href="index.html")}
+// تسجيل خروج
+window.logout = async () => {
+  await signOut(auth);
+  location.href = "../index.html";
+};
 
-function resetPassword(){
-  if(!emailEl.value)return alert("اكتب الايميل");
-  auth.sendPasswordResetEmail(emailEl.value).then(()=>alert("تم الارسال"))
-}
+// نسيت كلمة المرور
+window.resetPassword = async () => {
+  if (!emailEl.value) return alert("اكتب الايميل أولاً");
+  await sendPasswordResetEmail(auth, emailEl.value);
+  alert("تم إرسال رابط الاستعادة إلى بريدك الإلكتروني");
+};
+
+// التحقق من تسجيل الدخول
+onAuthStateChanged(auth, (user) => {
+  if (!user && location.pathname.includes("home")) {
+    location.href = "../index.html";
+  }
+});
