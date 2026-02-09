@@ -143,7 +143,9 @@ function render(story) {
       document.getElementById("views").textContent = count;
     })();  
     
+    document.addEventListener("DOMContentLoaded", () => {
     LoadComments(story.id_story);
+});
 
     hideLoading();
 }

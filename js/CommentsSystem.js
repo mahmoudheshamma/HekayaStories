@@ -66,6 +66,46 @@ async function canComment(uid){
     return data.canComment ?? true;
 }
 
+// ------------
+
+
+function deleteComment(commentId) {
+    const user = auth.currentUser;
+    if (!user) return alert("يجب تسجيل الدخول");
+
+    // تحقق من صلاحية الحذف: صاحب التعليق أو مشرف
+    db.ref(`comments/${pageId}/${commentId}/userId`).get().then(snap => {
+        const ownerId = snap.val();
+        if (ownerId !== user.uid && !adminUIDs.includes(user.uid)) {
+            return alert("لا تملك صلاحية حذف هذا التعليق");
+        }
+
+        if (confirm("هل تريد حذف هذا التعليق؟")) {
+            db.ref(`comments/${pageId}/${commentId}`).remove();
+        }
+    });
+}
+
+function editComment(commentId) {
+    const user = auth.currentUser;
+    if (!user) return alert("يجب تسجيل الدخول");
+
+    // جلب نص التعليق الحالي
+    db.ref(`comments/${pageId}/${commentId}`).get().then(snap => {
+        const comment = snap.val();
+        if (!comment) return;
+
+        // تحقق من صلاحية التعديل
+        if (comment.userId !== user.uid && !adminUIDs.includes(user.uid)) {
+            return alert("لا تملك صلاحية تعديل هذا التعليق");
+        }
+
+        const newText = prompt("تعديل التعليق:", comment.content);
+        if (newText && newText.trim() !== "") {
+            db.ref(`comments/${pageId}/${commentId}/content`).set(newText.trim());
+        }
+    });
+}
 // -----------------------
 async function AddComment(parentId = null, text = null){
     const user = auth.currentUser;
@@ -104,6 +144,7 @@ async function AddComment(parentId = null, text = null){
     });
 
     commentInput.value = "";
+    alert("sended");
 }
 
 // -----------------------
@@ -163,7 +204,7 @@ function renderComments(list, container, level=0){
             <div>${c.content}</div>
             <div class="actions">
                 <button class="like-btn" onclick="toggleLike('${c.id}')">
-                    <img src="like.png" /> ${c.likes}
+                    <img src="../img/LikeDisable.png" /> ${c.likes}
                 </button>
                 ${canDelete(c.userId) ? `<button onclick="deleteComment('${c.id}')">حذف</button>` : ""}
             </div>
@@ -188,3 +229,6 @@ export function LoadComments(PageID){
 
     initFCM();
 }
+
+window.toggleLike = toggleLike;
+window.deleteComment = deleteComment;
