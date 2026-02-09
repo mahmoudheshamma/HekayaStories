@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
-import { getMessaging, isSupported } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-messaging.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+  import { getDatabase, ref, push, set, onValue, runTransaction, child, get } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+  import { isSupported, getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-messaging.js";
 
 const firebaseConfig = {
 
@@ -17,16 +17,21 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getDatabase(app);
 export const database = getDatabase(app);
+
+export const bannedWords = [];
 
 export let messaging = null;
 
 isSupported().then(supported => {
     if (supported) {
-        messaging = getMessaging(app);
-        // console.log("Messaging supported ✅");
+        const messaging = getMessaging(app);
+
+        onMessage(messaging, (payload) => {
+            alert(payload.notification.title + "\n" + payload.notification.body);
+        });
     } else {
-        // console.warn("Messaging not supported ❌ — skipping it");
-        messaging = null;
+        // console.warn("Messaging not supported on this browser");
     }
 });

@@ -100,19 +100,16 @@
         </p>
     </article>
     
-    <div class="Comments_Container">
-        
-        <div id="comments">
-            
-        </div>
-        
-        <div class="card">
-        <textarea id="commentInput" rows="3" placeholder="اكتب تعليقك..."></textarea>
-        <button id="btnComment" onclick="addComment()">إرسال تعليق</button>
-        <p id="loginWarn" style="color:#f87171;display:none">يجب تسجيل الدخول</p>
-    </div>
-        
-    </div>
+    <div class="comments-container">
+  <h2>التعليقات</h2>
+
+  <div id="loginWarn" class="warn">يجب تسجيل الدخول للتعليق</div>
+
+  <textarea id="commentInput" placeholder="اكتب تعليقك..."></textarea>
+  <button id="sendBtn">إرسال</button>
+
+  <div id="comments"></div>
+</div>
 
 </main>
     

@@ -1,89 +1,45 @@
-.card{
-    background:#020617;
-    border:1px solid #1e293b;
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:16px;
-    box-shadow:0 10px 25px rgba(0,0,0,.4);
-    transition:.25s;
+.comments-container{
+  max-width:800px;
+  margin:auto;
+  padding:20px;
 }
-.card:hover{transform:translateY(-2px);}
 
-/* ===== [INPUT] ===== */
 textarea{
-    width:100%;
-    padding:14px;
-    border-radius:14px;
-    border:none;
-    background:#020617;
-    color:#fff;
-    resize:none;
-    outline:none;
-    margin-bottom:10px;
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-bottom:10px;
 }
 
-/* ===== [BUTTON] ===== */
 button{
-    background:linear-gradient(135deg,#3b82f6,#6366f1);
-    color:#fff;
-    border:none;
-    padding:8px 16px;
-    border-radius:12px;
-    cursor:pointer;
-    transition:.2s;
+  padding:10px 18px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#2563eb;
+  color:#fff;
 }
-button:hover{opacity:.85}
 
-/* ===== [COMMENT ITEM] ===== */
 .comment{
-    border-left:4px solid #3b82f6;
-    background:#020617;
-    border-radius:14px;
-    padding:14px;
-    margin-bottom:12px;
-    animation:fadeIn .4s ease;
+  background:#1e293b;
+  padding:12px;
+  border-radius:12px;
+  margin-top:12px;
 }
 
-/* ===== [META] ===== */
+.reply{
+  margin-right:25px;
+}
+
 .meta{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:13px;
-    opacity:.8;
-    margin-bottom:6px;
-}
-.avatar{
-    width:36px;
-    height:36px;
-    border-radius:50%;
+  font-size:13px;
+  opacity:.7;
+  margin-bottom:6px;
 }
 
-/* ===== [ACTIONS] ===== */
-.actions{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;}
-
-/* ===== [REPLY] ===== */
-.reply{margin-right:40px;margin-top:8px;}
-
-/* ===== [LIKE ANIMATION] ===== */
-.like.animate{animation:pop .25s ease;}
-@keyframes pop{
-    0%{transform:scale(1)}
-    50%{transform:scale(1.4)}
-    100%{transform:scale(1)}
+.like-btn img{
+  width:22px;
 }
 
-/* ===== [NEW COMMENT HIGHLIGHT] ===== */
-@keyframes fadeIn{
-    from{opacity:0;transform:translateY(10px)}
-    to{opacity:1;transform:translateY(0)}
-}
-
-/* ===== [VERIFIED BADGE] ===== */
-.badge{
-    background:#22c55e;
-    color:#fff;
-    padding:2px 6px;
-    border-radius:8px;
-    font-size:11px;
-}
+.warn{color:#f87171;margin-bottom:10px}

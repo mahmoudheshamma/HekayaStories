@@ -1,5 +1,7 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
 import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
+import { LoadComments } from "./CommentsSystem.js";
+
 
 const pathEl = document.getElementById("path"); // DOM element للمسار
 const name_story = document.getElementById("name_story");
@@ -139,7 +141,9 @@ function render(story) {
    (async () => {
       const count = await getViews("story", story.id_story);
       document.getElementById("views").textContent = count;
-    })();    
+    })();  
+    
+    LoadComments(story.id_story);
 
     hideLoading();
 }
