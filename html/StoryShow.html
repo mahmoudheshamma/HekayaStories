@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/StoryShow.css">    
     
     <link rel="stylesheet" href="../css/StoryRender.css">
-    <link rel="stylesheet" href="../css/CommentsSystem.css">
+    <link rel="stylesheet" href="../css/CommentSystem.css">
     
 </head>
 
@@ -100,16 +100,45 @@
         </p>
     </article>
     
-    <div class="comments-container">
-  <h2>التعليقات</h2>
-
-  <div id="loginWarn" class="warn">يجب تسجيل الدخول للتعليق</div>
-
-  <textarea id="commentInput" placeholder="اكتب تعليقك..."></textarea>
-  <button id="sendBtn">إرسال</button>
-
-  <div id="comments"></div>
-</div>
+<div class="comments-container">
+            <h2>التعليقات</h2>
+            
+                 <!-- حقل إضافة تعليق جديد -->
+            <div class="add-comment-section">
+                <h3>أضف تعليقاً جديداً</h3>
+                
+                <div id="loginWarn" class="warn">
+                    يجب تسجيل الدخول للتعليق
+                </div>
+                
+                <textarea 
+                    id="commentInput" 
+                    placeholder="اكتب تعليقك هنا..."
+                    rows="5"
+                ></textarea>
+                
+                <div class="comment-actions">
+                    <button id="sendBtn" class="primary-btn">إرسال التعليق</button>
+                </div>
+                
+   
+            </div>
+            
+            <!-- رسالة التحميل -->
+            <div id="loadingIndicator" class="loading-comments">
+                <div class="loading-spinner"></div>
+                <p>جاري تحميل التعليقات...</p>
+            </div>
+            
+            <!-- التعليقات يتم إضافتها هنا -->
+            <div id="comments"></div>
+            
+            <!-- إذا لم يكن هناك تعليقات -->
+            <div id="noComments" style="display: none; text-align: center; padding: 40px;">
+                <p>لا توجد تعليقات بعد. كن أول من يعلق!</p>
+            </div>
+            
+        </div>
 
 </main>
     

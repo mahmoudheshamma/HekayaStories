@@ -1,0 +1,242 @@
+/* ==========================================
+   COMMENTS SECTION
+   ========================================== */
+.comments-container {
+    max-width: 800px;
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 1.9;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+    background-color: #fff;
+    transition: background 0.3s, color 0.3s;
+    font-size: 16px;
+}
+
+body.dark-mode .comments-container {
+    background-color: #020617;
+    color: #fff;
+}
+
+#comments {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-bottom:10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s, color 0.3s;
+  border-radius: 12px;
+}
+
+/* ===== COMMENT CARD ===== */
+.comment-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s, color 0.3s;
+}
+
+.comment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .comment-card {
+    background-color: #1e293b;
+    color: #e2e8f0;
+}
+
+/* ===== COMMENT HEADER ===== */
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 2px solid #ccc;
+}
+
+.comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.verified {
+    color: #1da1f2;
+    font-size: 14px;
+}
+
+.time {
+    font-size: 12px;
+    color: #888;
+}
+
+/* ===== COMMENT CONTENT ===== */
+.comment-content {
+    margin: 10px 0;
+    line-height: 1.5;
+    white-space: pre-wrap; /* الحفاظ على التنسيق مع الأسطر الجديدة */
+}
+
+/* ===== COMMENT ACTIONS ===== */
+.comment-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.comment-actions button {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+/* أزرار التفاعل */
+.like-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;               /* المسافة بين القلب والعدد */
+    padding: 5px 10px;
+    border: none;
+    border-radius: 50px;
+    background-color: #ffedf0;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    font-size: 14px;
+    color: #e0245e;
+}
+
+.like-btn:hover {
+    background-color: #ffc6d0;
+}
+
+.like-btn:active {
+    transform: scale(0.85);
+    filter: brightness(1.2);
+}
+
+.like-icon {
+    width: 24px;
+    height: 24px;
+}
+.like-count {
+    font-weight: bold;
+}
+
+.reply-btn {
+    background-color: #e6f0ff;
+    color: #007bff;
+}
+.reply-btn:hover { background-color: #cce0ff; }
+
+.edit-btn {
+    background-color: #fff4e6;
+    color: #ff8c00;
+}
+.edit-btn:hover { background-color: #ffe0b3; }
+
+.delete-btn {
+    background-color: #ffe6e6;
+    color: #ff0000;
+}
+.delete-btn:hover { background-color: #ffcccc; }
+
+/* ===== REPLIES ===== */
+.replies {
+    margin-top: 15px;
+    padding-left: 60px;
+    border-left: 2px solid #eee;
+}
+
+.reply-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.user-avatar.small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.reply-content {
+    background-color: #f9f9f9;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+body.dark-mode .reply-content {
+    background-color: #0f172a;
+    color: #e2e8f0;
+}
+
+/* ===== INPUT AND SEND BUTTON ===== */
+textarea #commentInput {
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    margin-bottom: 15px;
+    resize: vertical;
+    background: white;
+    color: #1e293b;
+    transition: all 0.3s;
+}
+
+body.dark-mode textarea#commentInput {
+    background: #0f172a;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+#sendBtn {
+    padding: 12px 30px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#sendBtn:hover:not(:disabled) {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+#sendBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+body.dark-mode #sendBtn {
+    background: #1d4ed8;
+}

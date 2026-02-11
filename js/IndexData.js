@@ -49,7 +49,7 @@ function getCategoryString(story) {
             list.push(categoriesArabic[key]);
         }
     }
-    return list.join("، ");
+    return list.join(" - ");
 }
 
 /* ========= Firebase ========= */

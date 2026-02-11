@@ -1,46 +1,49 @@
+/* ==========================================
+   FONT & ROOT VARIABLES
+   ========================================== */
 @font-face {
     font-family: "Font";
-    src: url("../font/arabic_english_2.ttf") format("truetype");
+    src: url("../font/arabic_english_2.ttf") format("truetype"); /* الخط العربي والإنجليزي */
 }
 
 :root {
-  --main-font-size: 18px;
-  --main-line-height: 1.6;
+    --main-font-size: 16px;       /* الحجم الافتراضي للخط */
+    --main-line-height: 1.6;      /* ارتفاع السطر الافتراضي */
 }
 
-/* ===== Global ===== */
+/* ==========================================
+   GLOBAL STYLES
+   ========================================== */
 * {
-    
     box-sizing: border-box;
-    direction: rtl;
+    direction: rtl; /* دعم الكتابة من اليمين لليسار */
     margin: 0;
     padding: 0;
 }
 
 body {
+    font-family: "Font", sans-serif;
     background-color: #ffffff;
     color: #000;
-    line-height: 1.6;
+    line-height: var(--main-line-height);
     transition: background 0.3s, color 0.3s;
 }
 
+/* الوضع الليلي */
 body.dark-mode {
     background-color: #010510;
     color: #fff;
 }
 
-/* ===== Toolbar ===== */
-.toolbar {
-    display: flex;
-    justify-content: center;
-}
-
+/* ==========================================
+   MAIN CONTENT
+   ========================================== */
+   
 main, main *{
     font-size: var(--main-font-size) !important;
     line-height: var(--main-line-height) !important;
 }
-
-/* ===== Main Content ===== */
+   
 main.content {
     margin: 70px auto 60px auto;
     padding: 20px;
@@ -50,7 +53,9 @@ main.content {
     max-width: 900px;
 }
 
-/* ===== Story Card ===== */
+/* ==========================================
+   STORY CARD
+   ========================================== */
 .story-card img{
     filter: invert(1);
 }
@@ -67,12 +72,33 @@ body.dark-mode .story-card img{
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+/* الوضع الليلي للبطاقات */
 body.dark-mode .story-card {
     background: linear-gradient(135deg, #1e293b, #020617);
     color: #fff;
 }
 
-/* ===== Breadcrumb ===== */
+/* ==========================================
+   STORY CONTENT
+   ========================================== */
+.story-content {
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 1.9;
+    font-size: 17px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+    background-color: #fff;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode .story-content {
+    background-color: #020617;
+    color: #fff;
+}
+
+/* ==========================================
+   BREADCRUMB (PATH)
+   ========================================== */
 #path {
     font-size: 14px;
     margin-bottom: 12px;
@@ -99,8 +125,6 @@ body.dark-mode .story-card {
     margin: 0 5px;
     color: #999;
 }
-
-/* Dark Mode Breadcrumb */
 body.dark-mode #path,
 body.dark-mode #path a,
 body.dark-mode #path span,
@@ -158,7 +182,7 @@ body.dark-mode .views-box {
     padding: 10px;
     border-radius: 10px;
     line-height: 1.9;
-    font-size: 17px;
+    font-size: var(--main-font-size);
     box-shadow: 0 10px 25px rgba(0,0,0,0.10);
     background-color: #fff;
     transition: background 0.3s, color 0.3s;

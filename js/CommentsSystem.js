@@ -1,27 +1,33 @@
-// comments.js
-import { auth, db, messaging, bannedWords } from "./FirebaseConfig.js";
-import { ref, push, set, onValue, runTransaction, child, get } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+// ========================== IMPORTS ==========================
+import { auth, db, bannedWords } from "./FirebaseConfig.js";
+import { 
+  ref, onValue, child, get, push, set, runTransaction 
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-import { getToken } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-messaging.js";
 
-const allowLinks = false;
-const cooldownMs = 15000;
+// ========================== GLOBAL VARIABLES ==========================
+let storyId = "";        
+let pageId = "";         
+let lastCommentTime = 0; 
+const cooldownMs = 15000; 
+const allowLinks = false; 
 
-let pageId = "";
-let lastCommentTime = 0;
-
+// ========================== DOM ELEMENTS ==========================
 const commentsContainer = document.getElementById("comments");
+const noComments = document.getElementById("noComments");
+const loadingIndicator = document.getElementById("loadingIndicator");
+const loginWarn = document.getElementById("loginWarn");
+const sendBtn = document.getElementById("sendBtn");
 const commentInput = document.getElementById("commentInput");
 
-document.getElementById("sendBtn").onclick = () => AddComment();
-
-// -----------------------
+// ========================== AUTH STATE ==========================
 onAuthStateChanged(auth, user => {
-    document.getElementById("loginWarn").style.display = user ? "none" : "block";
-    document.getElementById("sendBtn").style.display = user ? "block" : "none";
+  if (!loginWarn || !sendBtn) return;
+  loginWarn.style.display = user ? "none" : "block";
+  sendBtn.disabled = !user;
 });
 
-// -----------------------
+// ========================== UTILITY FUNCTIONS ==========================
 function filterText(text) {
   bannedWords.forEach(w => {
     const reg = new RegExp(w, "gi");
@@ -30,205 +36,283 @@ function filterText(text) {
   return text;
 }
 
-function containsBadWords(text) {
-  return bannedWords.some(w => text.includes(w));
-}
-
 function containsLink(text) {
   return /(https?:\/\/|www\.)/.test(text);
 }
 
-// -----------------------
-async function initFCM() {
-    try {
-        if(!messaging) return;
-
-        const perm = await Notification.requestPermission();
-        if (perm !== "granted") return;
-
-        const token = await getToken(messaging, { 
-            vapidKey: "BDg-u7A5_L24gsB2jCW28EBPNIJ1Jw9kMic1KnFhLkN_vFQL8o7-rpQdS7luVOmbz2neipiXfgOYFh226meO4zQ" 
-        });
-
-        const user = auth.currentUser;
-        if(user) await set(ref(db, `fcmTokens/${user.uid}`), token);
-    } catch(e) { console.log(e); }
+function escapeHTML(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
 }
 
-// -----------------------
+function showAlert(msg, type = "error") {
+  alert(msg);
+}
+
+function formatTimeAgo(timestamp) {
+  if (!timestamp) return "الآن";
+  const diff = Date.now() - timestamp;
+  const min = Math.floor(diff / 60000);
+  const hr = Math.floor(min / 60);
+  const day = Math.floor(hr / 24);
+  if (min < 1) return "الآن";
+  if (min < 60) return `قبل ${min} دقيقة`;
+  if (hr < 24) return `قبل ${hr} ساعة`;
+  if (day < 7) return `قبل ${day} يوم`;
+  return new Date(timestamp).toLocaleDateString("ar-EG");
+}
+
+// ========================== USER DATA FUNCTIONS ==========================
 async function getUserDataByUID(uid){
-    const snap = await get(child(ref(db), `users/${uid}`));
-    return snap.exists() ? snap.val() : {};
+  const snap = await get(child(ref(db), `users/${uid}`));
+  return snap.exists() ? snap.val() : {};
 }
 
 async function canComment(uid){
-    const data = await getUserDataByUID(uid);
-    return data.canComment ?? true;
+  const data = await getUserDataByUID(uid);
+  return data.canComment ?? true;
 }
 
-// ------------
+// ========================== COMMENT ACTIONS ==========================
+async function deleteComment(commentId) {
+  const user = auth.currentUser;
+  if (!user) return alert("يجب تسجيل الدخول");
 
+  const snap = await get(ref(db, `comments/${pageId}/${commentId}/userId`));
+  if (snap.val() !== user.uid) return alert("لا تملك صلاحية حذف هذا التعليق");
 
-function deleteComment(commentId) {
-    const user = auth.currentUser;
-    if (!user) return alert("يجب تسجيل الدخول");
-
-    // تحقق من صلاحية الحذف: صاحب التعليق أو مشرف
-    db.ref(`comments/${pageId}/${commentId}/userId`).get().then(snap => {
-        const ownerId = snap.val();
-        if (ownerId !== user.uid && !adminUIDs.includes(user.uid)) {
-            return alert("لا تملك صلاحية حذف هذا التعليق");
-        }
-
-        if (confirm("هل تريد حذف هذا التعليق؟")) {
-            db.ref(`comments/${pageId}/${commentId}`).remove();
-        }
-    });
+  if (confirm("هل تريد حذف هذا التعليق؟")) {
+    await set(ref(db, `comments/${pageId}/${commentId}`), null);
+  }
 }
 
-function editComment(commentId) {
-    const user = auth.currentUser;
-    if (!user) return alert("يجب تسجيل الدخول");
+async function editComment(commentId) {
+  const user = auth.currentUser;
+  if (!user) return alert("يجب تسجيل الدخول");
 
-    // جلب نص التعليق الحالي
-    db.ref(`comments/${pageId}/${commentId}`).get().then(snap => {
-        const comment = snap.val();
-        if (!comment) return;
+  const snap = await get(ref(db, `comments/${pageId}/${commentId}`));
+  const comment = snap.val();
+  if (!comment || comment.userId !== user.uid) return alert("لا تملك صلاحية تعديل هذا التعليق");
 
-        // تحقق من صلاحية التعديل
-        if (comment.userId !== user.uid && !adminUIDs.includes(user.uid)) {
-            return alert("لا تملك صلاحية تعديل هذا التعليق");
-        }
-
-        const newText = prompt("تعديل التعليق:", comment.content);
-        if (newText && newText.trim() !== "") {
-            db.ref(`comments/${pageId}/${commentId}/content`).set(newText.trim());
-        }
-    });
+  const newText = prompt("تعديل التعليق:", comment.content);
+  if (newText && newText.trim() !== "") {
+    await set(ref(db, `comments/${pageId}/${commentId}/content`), newText.trim());
+  }
 }
-// -----------------------
-async function AddComment(parentId = null, text = null){
-    const user = auth.currentUser;
-    if(!user) return alert("يجب تسجيل الدخول أولاً");
 
-    const now = Date.now();
-    if(now - lastCommentTime < cooldownMs)
-      return alert("انتظر قليلاً قبل التعليق مرة أخرى");
+// ========================== LIKE FUNCTIONS ==========================
+async function toggleLike(commentId) {
+  const user = auth.currentUser;
+  if (!user) return showAlert("يجب تسجيل الدخول للقيام بالإعجاب");
 
-    let content = text || commentInput.value.trim();
-    if(!content) return;
+  const commentRef = ref(db, `comments/${pageId}/${commentId}`);
+  await runTransaction(commentRef, c => {
+    if (!c) return c;
+    c.likedBy = c.likedBy || {};
+    if (c.likedBy[user.uid]) {
+      c.likes--;
+      delete c.likedBy[user.uid];
+    } else {
+      c.likes++;
+      c.likedBy[user.uid] = true;
+    }
+    return c;
+  });
+}
 
-    content = filterText(content);
+// ========================== ADD COMMENT ==========================
+async function addComment(parentId = null) {
+  const user = auth.currentUser;
+  if (!user) return showAlert("يجب تسجيل الدخول أولاً");
 
-    if(containsBadWords(content)) return alert("تعليق غير مسموح");
-    if(!allowLinks && containsLink(content)) return alert("ممنوع الروابط");
+  if (Date.now() - lastCommentTime < cooldownMs) {
+    return showAlert("يرجى الانتظار قليلاً قبل التعليق مرة أخرى");
+  }
 
-    if(!(await canComment(user.uid))) return alert("غير مسموح لك بالتعليق");
+  const allowed = await canComment(user.uid);
+  if (!allowed) return showAlert("تم منعك من التعليق");
 
-    lastCommentTime = now;
+  let text = commentInput.value.trim();
+  if (!text) return showAlert("لا يمكن إرسال تعليق فارغ");
+  if (!allowLinks && containsLink(text)) return showAlert("الروابط غير مسموح بها");
 
-    const DataUser = await getUserDataByUID(user.uid);
+  text = filterText(text);
 
-    const commentRef = push(ref(db, `comments/${pageId}`));
-    await set(commentRef, {
-      content,
-      parentId,
-      pageId,
+  try {
+    const commentsRef = ref(db, `comments/${storyId}`);
+    const newCommentRef = push(commentsRef);
+    const userData = await getUserDataByUID(user.uid);
+
+    await set(newCommentRef, {
+      content: text,
       userId: user.uid,
-      userName: DataUser.name || "مستخدم",
-      userAvatar: DataUser.photo || "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      verified: userData.verified || false,
+      parentId: parentId,
       likes: 0,
       likedBy: {},
-      verified: false,
-      time: now
+      time: Date.now()
     });
 
     commentInput.value = "";
-    alert("sended");
+    lastCommentTime = Date.now();
+    showAlert("تم نشر التعليق بنجاح", "success");
+  } catch (error) {
+    console.error(error);
+    showAlert("حدث خطأ أثناء إرسال التعليق");
+  }
 }
 
-// -----------------------
-function canDelete(uid){
-    const user = auth.currentUser;
-    return user && user.uid === uid;
-}
+// ========================== LOAD & DISPLAY COMMENTS ==========================
+export function loadAllComments(id) {
+  if (!id) return;
+  storyId = pageId = id;
+  if (loadingIndicator) loadingIndicator.style.display = "block";
 
-function buildTree(data){
-    const map = {};
-    Object.entries(data).forEach(([id, c])=>{
-        c.id = id; c.children = []; map[id] = c;
-    });
-
-    const roots = [];
-    Object.values(map).forEach(c=>{
-        if(c.parentId && map[c.parentId]) map[c.parentId].children.push(c);
-        else roots.push(c);
-    });
-
-    roots.sort((a,b)=>b.time - a.time);
-    return roots;
-}
-
-// -----------------------
-function toggleLike(id){
-    const user = auth.currentUser;
-    const key = `like_${pageId}_${id}`;
-    const commentRef = ref(db, `comments/${pageId}/${id}`);
-
-    if(user){
-        runTransaction(commentRef, c=>{
-            if(!c) return c;
-            c.likedBy = c.likedBy || {};
-            if(c.likedBy[user.uid]){
-                c.likes--; delete c.likedBy[user.uid];
-            } else {
-                c.likes++; c.likedBy[user.uid]=true;
-            }
-            return c;
-        });
-    } else {
-        if(localStorage.getItem(key)) return;
-        runTransaction(ref(db, `comments/${pageId}/${id}/likes`), v=>(v||0)+1);
-        localStorage.setItem(key, 1);
+  const commentsRef = ref(db, `comments/${storyId}`);
+  onValue(commentsRef, async snapshot => {
+    const data = snapshot.val() || {};
+    if (loadingIndicator) loadingIndicator.style.display = "none";
+    if (Object.keys(data).length === 0) {
+      if (noComments) noComments.style.display = "block";
+      if (commentsContainer) commentsContainer.innerHTML = "";
+      return;
     }
+    if (noComments) noComments.style.display = "none";
+    await displayComments(data);
+  });
 }
 
-// -----------------------
-function renderComments(list, container, level=0){
-    list.forEach(c=>{
-        const div = document.createElement("div");
-        div.className = "comment" + (level ? " reply" : "");
+async function displayComments(commentsData) {
+  if (!commentsContainer) return;
+  commentsContainer.innerHTML = "";
 
-        div.innerHTML = `
-            <div class="meta">${c.userName} • ${new Date(c.time).toLocaleString()}</div>
-            <div>${c.content}</div>
-            <div class="actions">
-                <button class="like-btn" onclick="toggleLike('${c.id}')">
-                    <img src="../img/LikeDisable.png" /> ${c.likes}
-                </button>
-                ${canDelete(c.userId) ? `<button onclick="deleteComment('${c.id}')">حذف</button>` : ""}
-            </div>
-        `;
+  const commentsArray = Object.entries(commentsData).map(([id, c]) => ({ id, ...c }));
+  commentsArray.sort((a, b) => b.time - a.time);
 
-        container.appendChild(div);
-
-        if(c.children.length) renderComments(c.children, container, level+1);
-    });
+  for (const comment of commentsArray) {
+    if (!comment.parentId) {
+      const commentEl = await createCommentElement(comment, commentsData);
+      commentsContainer.appendChild(commentEl);
+    }
+  }
 }
 
-// -----------------------
-export function LoadComments(PageID){
-    pageId = PageID;
-    const pageRef = ref(db, `comments/${pageId}`);
-    onValue(pageRef, snapshot=>{
-        commentsContainer.innerHTML = "";
-        const data = snapshot.val()||{};
-        const tree = buildTree(data);
-        renderComments(tree, commentsContainer);
-    });
+// ========================== CREATE COMMENT ELEMENT ==========================
+async function createCommentElement(comment, allComments) {
+  const userdata = await getUserDataByUID(comment.userId);
 
-    initFCM();
+  const div = document.createElement('div');
+  div.className = 'comment-card';
+  div.id = `comment-${comment.id}`;
+
+  // Header
+  const header = document.createElement('div');
+  header.className = 'comment-header';
+
+  const avatar = document.createElement('img');
+  avatar.className = 'user-avatar';
+  avatar.src = userdata.photo || "default-avatar.png";
+  avatar.alt = userdata.name || "User";
+
+  const meta = document.createElement('div');
+  meta.className = 'comment-meta';
+
+  const name = document.createElement('span');
+  name.className = 'user-name';
+  name.textContent = userdata.name || "غير معروف";
+
+  const verified = document.createElement('span');
+  verified.className = 'verified';
+  verified.textContent = userdata.verify ? '✔' : '';
+
+  const time = document.createElement('span');
+  time.className = 'time';
+  time.textContent = formatTimeAgo(comment.time);
+
+  meta.append(name, verified, time);
+  header.append(avatar, meta);
+
+  // Content
+  const content = document.createElement('div');
+  content.className = 'comment-content';
+  content.innerHTML = escapeHTML(comment.content);
+
+  // Actions
+  const actions = document.createElement('div');
+  actions.className = 'comment-actions';
+
+  const likeBtn = document.createElement('button');
+  likeBtn.className = 'like-btn';
+
+  const heartImg = document.createElement('img');
+  heartImg.className = 'like-icon';
+  heartImg.src = '../img/LikeDisable.png';
+
+  const likeCount = document.createElement('span');
+  likeCount.className = 'like-count';
+  likeCount.textContent = comment.likes || 0;
+
+  likeBtn.append(heartImg, likeCount);
+  actions.append(likeBtn);
+
+  // التحديث الفوري لكل تعليق
+  const commentRef = ref(db, `comments/${pageId}/${comment.id}`);
+  onValue(commentRef, snapshot => {
+    const data = snapshot.val() || {};
+    const liked = data.likedBy?.[auth.currentUser?.uid];
+    heartImg.src = liked ? '../img/LikeEnable.png' : '../img/LikeDisable.png';
+    likeCount.textContent = data.likes ?? 0;
+  });
+
+  likeBtn.addEventListener('click', () => toggleLike(comment.id));
+
+  // أزرار أخرى
+  const replyBtn = document.createElement('button');
+  replyBtn.className = 'reply-btn';
+  replyBtn.textContent = 'رد';
+  replyBtn.addEventListener('click', () => replyComment(comment.id));
+
+  const editBtn = document.createElement('button');
+  editBtn.className = 'edit-btn';
+  editBtn.textContent = 'تعديل';
+  editBtn.addEventListener('click', () => editComment(comment.id));
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.className = 'delete-btn';
+  deleteBtn.textContent = 'حذف';
+  deleteBtn.addEventListener('click', () => deleteComment(comment.id));
+
+  actions.append(replyBtn, editBtn, deleteBtn);
+
+  // Replies
+  const repliesDiv = document.createElement('div');
+  repliesDiv.className = 'replies';
+  const replies = Object.values(allComments)
+    .filter(c => c.parentId === comment.id)
+    .sort((a,b)=>a.time-b.time);
+
+  for (const reply of replies) {
+    const replyEl = await createCommentElement(reply, allComments);
+    replyEl.classList.add('reply-card');
+    repliesDiv.appendChild(replyEl);
+  }
+
+  div.append(header, content, actions, repliesDiv);
+  return div;
 }
 
-window.toggleLike = toggleLike;
-window.deleteComment = deleteComment;
+// ========================== REPLY ==========================
+function replyComment(parentId) {
+  commentInput.focus();
+  commentInput.dataset.replyTo = parentId;
+}
+
+// ========================== SEND BUTTON ==========================
+if (sendBtn) {
+  sendBtn.addEventListener("click", () => {
+    const parentId = commentInput.dataset.replyTo || null;
+    addComment(parentId);
+    delete commentInput.dataset.replyTo;
+  });
+}

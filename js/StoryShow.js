@@ -1,6 +1,6 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
 import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
-import { LoadComments } from "./CommentsSystem.js";
+import { loadAllComments } from './CommentsSystem.js';
 
 
 const pathEl = document.getElementById("path"); // DOM element للمسار
@@ -143,9 +143,8 @@ function render(story) {
       document.getElementById("views").textContent = count;
     })();  
     
-    document.addEventListener("DOMContentLoaded", () => {
-    LoadComments(story.id_story);
-});
+
+if (story) loadAllComments(story.id_story);
 
     hideLoading();
 }
