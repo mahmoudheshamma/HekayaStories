@@ -212,7 +212,7 @@ async function createCommentElement(comment, allComments) {
 
   const avatar = document.createElement('img');
   avatar.className = 'user-avatar';
-  avatar.src = userdata.photo || "default-avatar.png";
+  avatar.src = userdata.photo;
   avatar.alt = userdata.name || "User";
 
   const meta = document.createElement('div');

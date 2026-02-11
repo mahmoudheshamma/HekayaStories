@@ -1,9 +1,10 @@
-import { database } from "./FirebaseConfig.js";
+import { database, auth } from "./FirebaseConfig.js";
 import {
     ref,
     get
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
+import { getUserDataByUID, doesUserExist } from './DatabaseUser.js'
 
 /* ========= Variables ========= */
 
@@ -34,6 +35,27 @@ const categoriesArabic = {
     sad: "حزين",
     comedy: "كوميديا"
 };
+
+const UID = "";
+
+async function checkOrCreateUser() {
+  const user = auth.currentUser;
+  if (user) {
+    UID = user.uid;
+
+    const exists = await doesUserExist(UID);
+    if (!exists) {
+      // إنشاء مستخدم جديد لأنه غير موجود
+      await createUserInDB(user);
+    }
+
+    // بعد التأكد أن المستخدم موجود، يمكن جلب بياناته
+    const userData = await getUserDataByUID(UID);
+    // console.log(userData);
+  }
+}
+
+///////
 
 function getCategoryFromURL() {
     const params = new URLSearchParams(window.location.search);

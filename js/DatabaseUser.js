@@ -38,3 +38,15 @@ export async function getUserProfileImage(uid, authUser) {
 
   return "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 }
+
+
+export async function doesUserExist(uid) {
+  try {
+    const userRef = ref(database);
+    const snapshot = await get(child(userRef, `users/${uid}`));
+    return snapshot.exists();
+  } catch (error) {
+    // console.error("حدث خطأ أثناء التحقق من المستخدم:", error);
+    return false;
+  }
+}
