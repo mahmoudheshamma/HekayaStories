@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>الملف الشخصي</title>
+    
+ <link rel="stylesheet" href="../css/GeneralStyle.css">
+    <link rel="stylesheet" href="../css/ProfilePage.css">
+    
+</head>
+<body>
+    
+     <header>
+            <div style="justify-content:center" class="toolbar">
+                
+                <h1 onclick="GoToHome()">العلم حكاية</h1>
+                
+            </div>
+        </header>
+        
+        <div class="container">
+    <div class="profile-header">
+        <img id="profilePhoto" src="../img/profile.png" alt="Profile Photo" class="profile-photo">
+
+        <div class="profile-info">
+            <h1>
+                <span id="name">Mahmoud Hesham</span>
+                <img id="verify-badge" src="../img/verify.png" alt="Verified" class="verify-badge">
+            </h1>
+
+            <span id="username">@mahmoud123</span>
+            <span id="title">Web Developer</span>
+            <span id="role">Admin</span>
+
+            <div class="stats">
+                <div class="stat">
+                    <h3 id="followers">150</h3>
+                    <p>متابعين</p>
+                </div>
+                <div class="stat">
+                    <h3 id="likes">75</h3>
+                    <p>اعجاب</p>
+                </div>
+            </div>
+            
+            <button id="logoutBtn">تسجيل الخروج</button>
+            
+        </div>
+    </div>
+
+    <div id="itemList" class="item-list"></div>
+</div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script type="module" src="../js/LoginPage.js" defer></script>
+    <script src="../js/DialogLoading.js"></script>
+    <script type="module" src="../js/ProfilePage.js" defer></script>
+    
+    <script>showLoading();</script>
+    
+</body>
+</html>

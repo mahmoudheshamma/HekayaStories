@@ -49,3 +49,33 @@ export async function doesUserExist(uid) {
     return false;
   }
 }
+
+
+// وضع صورة المستخدم داخل عنصر img باستخدام الـ id
+export async function setUserImageToImg(uid, imgElement, authUser = null) {
+  try {
+    if (!imgElement) return;
+
+    const photoURL = await getUserProfileImage(uid, authUser);
+    imgElement.src = photoURL;
+  } catch (error) {
+    console.error("خطأ أثناء تحميل صورة المستخدم:", error);
+  }
+}
+
+
+export async function deleteUserAccount(authUser) {
+  try {
+    if (!authUser) throw new Error("لا يوجد مستخدم مسجل دخول");
+
+    const uid = authUser.uid;
+
+    // 1️⃣ حذف بيانات المستخدم من قاعدة البيانات
+    await remove(ref(database, `users/${uid}`));
+
+    return true;
+  } catch (error) {
+    console.error("خطأ أثناء حذف الحساب:", error);
+    return false;
+  }
+}

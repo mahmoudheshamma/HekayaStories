@@ -122,7 +122,7 @@ window.resetPassword = async () => {
 onAuthStateChanged(auth, (user) => {
   const isHome = location.pathname.includes("index");
 
-  if (!user && isHome) {
+  if (user) {
     location.href = "../index.html";
   }
 });
@@ -146,7 +146,7 @@ window.getCurrentUID = () => {
   if (user) {
     return user.uid;
   } else {
-    console.warn("لا يوجد مستخدم مسجل دخول حالياً");
+    // console.warn("لا يوجد مستخدم مسجل دخول حالياً");
     return null;
   }
 };

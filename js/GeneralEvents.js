@@ -43,18 +43,15 @@ function GoToTellYourStory() {
     window.location.href = "../html/StoryShow.html?slug=story-أخبرنا-قصتك";
 }
 
-function GoToProfile() {
+async function GoToProfile() {
+  const loggedIn = await window.isLoggedIn(); // ✅ انتظر Promise
 
-  const loggedIn = window.isLoggedIn();
-  
   if (loggedIn) {
-  alert("قريباً");
-    // console.log("المستخدم مسجل دخول ✅");
+    const UID = window.getCurrentUID();
+    window.location.href = `../html/ProfilePage.html?id=${UID}`;
   } else {
-    // console.log("لا يوجد مستخدم مسجل دخول ❌");
     window.location.href = "../html/LoginPage.html";  
   }
-  
 }
 
 function GoToFacebook () {
