@@ -123,7 +123,7 @@ onAuthStateChanged(auth, (user) => {
   const isHome = location.pathname.includes("index");
 
   if (user) {
-    location.href = "../index.html";
+    // location.href = "../index.html";
   }
 });
 
