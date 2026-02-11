@@ -119,13 +119,6 @@ window.resetPassword = async () => {
 };
 
 /* ========= حماية الصفحات ========= */
-onAuthStateChanged(auth, (user) => {
-  const isHome = location.pathname.includes("index");
-
-  if (user) {
-    // location.href = "../index.html";
-  }
-});
 
 window.isLoggedIn = () => {
   return new Promise((resolve) => {
