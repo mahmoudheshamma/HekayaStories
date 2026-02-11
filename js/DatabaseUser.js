@@ -1,5 +1,5 @@
 import { database } from "./FirebaseConfig.js";
-import { ref, get, set, remove } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+import { ref, get, set, remove, child } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 
 export async function createUserInDB(user) {
@@ -33,12 +33,11 @@ export async function getUserDataByUID(uid) {
 export async function getUserProfileImage(uid, authUser) {
   const data = await getUserDataByUID(uid);
 
-  if (data?.photoURL) return data.photoURL;
+  if (data?.photo) return data.photo; // ← هنا استخدم photo وليس photoURL
   if (authUser?.photoURL) return authUser.photoURL;
 
   return "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 }
-
 
 export async function doesUserExist(uid) {
   try {

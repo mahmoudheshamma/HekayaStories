@@ -4,7 +4,7 @@ import {
     get
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
-import { getUserDataByUID, doesUserExist } from './DatabaseUser.js'
+import { createUserInDB, getUserDataByUID, getUserProfileImage, doesUserExist } from './DatabaseUser.js';
 
 /* ========= Variables ========= */
 
@@ -36,7 +36,7 @@ const categoriesArabic = {
     comedy: "كوميديا"
 };
 
-const UID = "";
+let UID = "";
 
 async function checkOrCreateUser() {
   const user = auth.currentUser;
@@ -45,13 +45,8 @@ async function checkOrCreateUser() {
 
     const exists = await doesUserExist(UID);
     if (!exists) {
-      // إنشاء مستخدم جديد لأنه غير موجود
       await createUserInDB(user);
     }
-
-    // بعد التأكد أن المستخدم موجود، يمكن جلب بياناته
-    const userData = await getUserDataByUID(UID);
-    // console.log(userData);
   }
 }
 
@@ -256,4 +251,5 @@ loadStories().then(() => {
 
     applyFilters();
     initViews("web" ,"heyaka_story");
+    checkOrCreateUser();
 });
