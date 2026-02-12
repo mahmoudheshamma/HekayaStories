@@ -258,7 +258,7 @@ addPlugin({
     render:m=>`<div class="tip">💡 ${m[1]}</div>`
 });
 
-//::icon[url|msg])
+//::icon[url|msg]
 addPlugin({
     name: "icon",
     regex:/::icon\[(.*?)\|(.*?)\]/g,
