@@ -3,8 +3,8 @@
    ========================================== */
 .comments-container {
     max-width: 800px;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 12px;
     line-height: 1.9;
     box-shadow: 0 10px 25px rgba(0,0,0,0.10);
     background-color: #fff;
@@ -23,15 +23,56 @@ body.dark-mode .comments-container {
     gap: 15px;
 }
 
-textarea{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  margin-bottom:10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s, color 0.3s;
-  border-radius: 12px;
+/* ===== TEXTAREA ===== */
+textarea#commentInput {
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    margin-bottom: 15px;
+    resize: vertical;
+    background: white;
+    color: #1e293b;
+    transition: all 0.3s;
+}
+
+textarea#commentInput:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+body.dark-mode textarea#commentInput {
+    background: #0f172a;
+    border-color: #475569;
+    color: #e2e8f0;
+}
+
+/* ===== SEND BUTTON ===== */
+#sendBtn {
+    padding: 12px 30px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#sendBtn:hover:not(:disabled) {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+#sendBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+body.dark-mode #sendBtn {
+    background: #1d4ed8;
 }
 
 /* ===== COMMENT CARD ===== */
@@ -94,7 +135,7 @@ body.dark-mode .comment-card {
 .comment-content {
     margin: 10px 0;
     line-height: 1.5;
-    white-space: pre-wrap; /* الحفاظ على التنسيق مع الأسطر الجديدة */
+    white-space: pre-wrap;
 }
 
 /* ===== COMMENT ACTIONS ===== */
@@ -117,7 +158,7 @@ body.dark-mode .comment-card {
 .like-btn {
     display: flex;
     align-items: center;
-    gap: 6px;               /* المسافة بين القلب والعدد */
+    gap: 6px;
     padding: 5px 10px;
     border: none;
     border-radius: 50px;
@@ -128,22 +169,8 @@ body.dark-mode .comment-card {
     color: #e0245e;
 }
 
-.like-btn:hover {
-    background-color: #ffc6d0;
-}
-
-.like-btn:active {
-    transform: scale(0.85);
-    filter: brightness(1.2);
-}
-
-.like-icon {
-    width: 24px;
-    height: 24px;
-}
-.like-count {
-    font-weight: bold;
-}
+.like-btn:hover { background-color: #ffc6d0; }
+.like-btn:active { transform: scale(0.85); filter: brightness(1.2); }
 
 .reply-btn {
     background-color: #e6f0ff;
@@ -180,7 +207,6 @@ body.dark-mode .comment-card {
 .user-avatar.small {
     width: 35px;
     height: 35px;
-    border-radius: 50%;
 }
 
 .reply-content {
@@ -196,47 +222,46 @@ body.dark-mode .reply-content {
     color: #e2e8f0;
 }
 
-/* ===== INPUT AND SEND BUTTON ===== */
-textarea #commentInput {
-    width: 100%;
-    min-height: 100px;
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #e2e8f0;
-    margin-bottom: 15px;
-    resize: vertical;
-    background: white;
-    color: #1e293b;
-    transition: all 0.3s;
+/* ===== WARNINGS ===== */
+.warn {
+    font-size: 14px;
+    color: #e11d48;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.warn::before {
+    content: "⚠️";
 }
 
-body.dark-mode textarea#commentInput {
-    background: #0f172a;
-    border-color: #334155;
-    color: #e2e8f0;
+/* ===== LOADING ===== */
+.loading-comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 15px;
 }
 
-#sendBtn {
-    padding: 12px 30px;
-    background: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #e2e8f0;
+    border-top: 5px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
-#sendBtn:hover:not(:disabled) {
-    background: #2563eb;
-    transform: translateY(-1px);
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-#sendBtn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-body.dark-mode #sendBtn {
-    background: #1d4ed8;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    .comments-container { padding: 8px; font-size: 14px; }
+    .comment-card, .reply-content { padding: 12px; }
+    .user-avatar { width: 40px; height: 40px; }
+    .user-avatar.small { width: 28px; height: 28px; }
 }

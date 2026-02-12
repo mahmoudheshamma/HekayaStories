@@ -88,3 +88,21 @@ main .buttons button:hover {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+/* الوضع الداكن للصندوق */
+body.dark-mode #storyContainer {
+    background-color: #1a1a1a; /* لون داكن مناسب */
+    color: #ffffff; /* نص أبيض للوضوح */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* ظل أقوى للتميز */
+    border: 1px solid #333; /* حد خفيف لتمييز الصندوق */
+}
+
+/* يمكن تعديل الأزرار داخل الصندوق إذا أردت */
+body.dark-mode main .buttons button {
+    background: #0a2a3f;
+    color: #fff;
+}
+
+body.dark-mode main .buttons button:hover {
+    background: #00465c;
+}

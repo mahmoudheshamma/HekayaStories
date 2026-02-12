@@ -84,7 +84,7 @@ async function loadStories() {
         .filter(story => {
            
                 if (!story) return false;
-                if (story.type === "TellYouStory") return false;
+                if (story.type !== "story") return false;
                 if(story.status === "check") return false;
                 
                 return true;

@@ -1,55 +1,91 @@
-/* Card List */
-
-.CardStory{
+/* Card List - الوضع الفاتح */
+.CardStory {
     width: 100%;
     max-width: 420px;
     height: auto;
     border-radius: 12px;
     background: #ffffff;
-    padding: 10px;
+    padding: 12px 15px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    transition: all 0.3s ease;
 }
 
-.HeaderCard{
+.CardStory:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.HeaderCard {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.HeaderCard span{
+.HeaderCard span {
     font-size: 19px;
     font-weight: bold;
     color: #222;
 }
-.InfoCard{
+
+.InfoCard {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     align-items: center;
     justify-content: space-between;
 }
-.InfoCard span{
+
+.InfoCard span {
     font-size: 16px;
     padding: 4px 10px;
     border-radius: 10px;
     background: #eceff1;
     color: #263238;
-    align-items: center;
     text-align: center;
 }
 
-.FooterCard{
+.FooterCard {
     display: flex;
     align-items: center;
     padding-top: 8px;
     border-top: 1px solid #eee;
     justify-content: space-between;
 }
-.FooterCard span{
+
+.FooterCard span {
     font-size: 15px;
     font-weight: bold;
     color: #444;
+}
+
+/* Card List - الوضع الداكن */
+body.dark-mode .CardStory {
+    background-color: #1e1e2a; /* خلفية داكنة للبطاقة */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    color: #fff;
+}
+
+body.dark-mode .CardStory:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .HeaderCard span {
+    color: #f1f1f1;
+}
+
+body.dark-mode .InfoCard span {
+    background-color: #2a2a3d;
+    color: #e0e0e0;
+}
+
+body.dark-mode .FooterCard {
+    border-top: 1px solid #333;
+}
+
+body.dark-mode .FooterCard span {
+    color: #ccc;
 }

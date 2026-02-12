@@ -12,6 +12,8 @@
     
     <link rel="stylesheet" href="../css/StoryRender.css">
     <link rel="stylesheet" href="../css/CommentSystem.css">
+    <link rel="stylesheet" href="../css/stories-list.css">
+    
     
 </head>
 
@@ -101,49 +103,49 @@
     </article>
     
 <div class="comments-container">
-            <h2>التعليقات</h2>
-            
-                 <!-- حقل إضافة تعليق جديد -->
-            <div class="add-comment-section">
-                <h3>أضف تعليقاً جديداً</h3>
-                
-                <div id="loginWarn" class="warn">
-                    يجب تسجيل الدخول للتعليق
-                </div>
-                
-                <textarea 
-                    id="commentInput" 
-                    placeholder="اكتب تعليقك هنا..."
-                    rows="5"
-                ></textarea>
-                
-                <div class="comment-actions">
-                    <button id="sendBtn" class="primary-btn">إرسال التعليق</button>
-                </div>
-                
-   
-            </div>
-            
-            <!-- رسالة التحميل -->
-            <div id="loadingIndicator" class="loading-comments">
-                <div class="loading-spinner"></div>
-                <p>جاري تحميل التعليقات...</p>
-            </div>
-            
-            <!-- التعليقات يتم إضافتها هنا -->
-            <div id="comments"></div>
-            
-            <!-- إذا لم يكن هناك تعليقات -->
-            <div id="noComments" style="display: none; text-align: center; padding: 40px;">
-                <p>لا توجد تعليقات بعد. كن أول من يعلق!</p>
-            </div>
-            
+    <h2>التعليقات</h2>
+
+    <!-- حقل إضافة تعليق جديد -->
+    <div class="add-comment-section">
+        <h3>أضف تعليقاً جديداً</h3>
+
+        <div id="loginWarn" class="warn">
+            يجب تسجيل الدخول للتعليق
         </div>
+
+        <textarea 
+            id="commentInput" 
+            placeholder="اكتب تعليقك هنا..."
+            rows="5"
+        ></textarea>
+
+        <div class="comment-actions">
+            <button id="sendBtn" class="primary-btn">إرسال التعليق</button>
+        </div>
+    </div>
+
+    <!-- رسالة التحميل -->
+    <div id="loadingIndicator" class="loading-comments">
+        <div class="loading-spinner"></div>
+        <p>جاري تحميل التعليقات...</p>
+    </div>
+
+    <!-- التعليقات يتم إضافتها هنا -->
+    <div id="comments"></div>
+
+    <!-- إذا لم يكن هناك تعليقات -->
+    <div id="noComments" style="display: none;">
+        <p>لا توجد تعليقات بعد. كن أول من يعلق!</p>
+    </div>
+</div>
+        
+        <div id="storyContainer">لا يوجد قصص متابعة</div>
 
 </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
      <script type="module" src="../js/ViewsManager.js"></script>
+     <script type="module" src="../js/DatabaseStory.js"></script>
      <script src="../js/DialogLoading.js"></script>
      <script src="../js/DialogHelper.js"></script> 
      <script src="../js/StoryRender.js"></script>

@@ -45,6 +45,10 @@ async function init() {
     } else {
         window.location.href = "../html/error.html";
     }
+    
+    if (window.getCurrentUID() !== id) {
+        logoutBtn.style.display = "none";
+    }
 }
 
 /////////

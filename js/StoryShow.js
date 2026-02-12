@@ -1,8 +1,9 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
 import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
 import { loadAllComments } from './CommentsSystem.js';
+import { renderStoriesByField } from "./DatabaseStory.js";
 
-
+const storyContainer = document.getElementById("storyContainer");
 const pathEl = document.getElementById("path"); // DOM element للمسار
 const name_story = document.getElementById("name_story");
 const writer_story = document.getElementById("writer_story");
@@ -145,6 +146,14 @@ function render(story) {
     
 
 if (story) loadAllComments(story.id_story);
+
+    if (story.id_list && story.id_list !== "null") {
+        
+    renderStoriesByField(storyContainer, "story", "id_list", story.id_list, story.id_story);
+    
+} else {
+    storyContainer.style.display = "none";
+}
 
     hideLoading();
 }
