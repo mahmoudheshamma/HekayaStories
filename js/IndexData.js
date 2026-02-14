@@ -117,7 +117,7 @@ function renderPage() {
     pageItems.forEach(story => {
     
     num++;
-    
+      
     const card = document.createElement("div");
     card.style.cursor = "pointer";
     card.onclick = () => {
@@ -130,7 +130,7 @@ function renderPage() {
             <div class="CardStory">
                 <div class="HeaderCard">
                     <span class="storyName">${story.name_story || ""} ${story.num_story}</span>
-                    <span class="storyViews">👁️ ${story.seen}</span>
+                    <span class="storyViews">👁️${story.seen}</span>
                 </div>
 
                 <div class="InfoCard">
@@ -146,6 +146,7 @@ function renderPage() {
         `;
 
         storyContainer.appendChild(card);
+        
     });
 
     pageInfo.textContent = `${currentPage} / ${Math.ceil(filteredList.length / itemsPerPage)}`;

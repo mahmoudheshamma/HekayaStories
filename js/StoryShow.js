@@ -1,5 +1,5 @@
 import { getStoryById, getStoryBySlug } from "./StoryService.js";
-import { initViews, onViewsUpdate, getViews } from './ViewsManager.js';
+import { initViews, onViewsUpdate, getViews, destroyViews } from './ViewsManager.js';
 import { loadAllComments } from './CommentsSystem.js';
 import { renderStoriesByField } from "./DatabaseStory.js";
 
@@ -117,7 +117,7 @@ if (story) {
 // ======================================
 function render(story) {
     // SEO
-    document.title = story.name_story;
+    document.title = story.name_story + " " + story.num_story;
     let metaDescription = document.querySelector('meta[name="description"]');
     if (!metaDescription) {
         metaDescription = document.createElement('meta');
@@ -131,19 +131,21 @@ function render(story) {
     // المحتوى
     renderStory("#story", story.story);
     writer_story.textContent = story.name_writer;
-    name_story.textContent = story.name_story;
+    name_story.textContent = story.name_story + "  " + story.num_story;
 
     // مسار التنقل
     renderBreadcrumb(story);
 
     // StoryShow.js
-    initViews("story" ,story.id_story);
-
-   (async () => {
-      const count = await getViews("story", story.id_story);
-      document.getElementById("views").textContent = count;
-    })();  
+    initViews("story", story.id_story);
     
+    let seen = 0;
+    
+    initViews("story", story.id_story);
+
+onViewsUpdate("story", count => {
+  document.getElementById("views").textContent = count;
+}, story.id_story);
 
 if (story) loadAllComments(story.id_story);
 
@@ -156,4 +158,8 @@ if (story) loadAllComments(story.id_story);
 }
 
     hideLoading();
+    
+    window.addEventListener("beforeunload", () => {
+        destroyViews("story", story.id_story);
+    });
 }

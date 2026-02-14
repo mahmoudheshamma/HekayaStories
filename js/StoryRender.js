@@ -230,6 +230,24 @@ addPlugin({
     `
 });
 
+// voice
+// [ahmed]أنا خائف قليلًا[/ahmed]
+
+addPlugin({
+    name: "speaker",
+    regex: /\[(\w+)\]([\s\S]*?)\[\/\1\]/g,
+    render: m => {
+        const emotion = detectEmotion(m[2]);
+
+        return `
+        <span class="voice"
+              data-speaker="${m[1]}"
+              data-emotion="${emotion}">
+            ${parseInline(m[2])}
+        </span>`;
+    }
+});
+
 // new line :;:
 addPlugin({
     name: "space_Withoutline",

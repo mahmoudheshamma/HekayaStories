@@ -232,3 +232,13 @@ body.dark-mode hr.big{
     width:20px;
     height:20px;
 }
+
+.voice{
+    transition: .3s;
+    padding: 2px 4px;
+    border-radius: 6px;
+}
+
+.voice.active{
+    background: #ffe08a;
+}
