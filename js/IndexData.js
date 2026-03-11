@@ -11,7 +11,7 @@ import { createUserInDB, getUserDataByUID, getUserProfileImage, doesUserExist } 
 let storiesList = [];
 let filteredList = [];
 let currentPage = 1;
-const itemsPerPage = 5;
+const itemsPerPage = 8;
 let selectedCategory = "";
 
 const storyContainer = document.getElementById("storyContainer");
