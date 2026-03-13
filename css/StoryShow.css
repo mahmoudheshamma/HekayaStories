@@ -35,6 +35,9 @@ body.dark-mode {
     color: #fff;
 }
 
+#BackToTop{
+    display: block;
+}
 /* ==========================================
    MAIN CONTENT
    ========================================== */

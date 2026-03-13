@@ -164,8 +164,7 @@ function applyFilters() {
         const writer = (story.name_writer || "").toLowerCase();
 
         const matchCategory =
-    selectedCategory === "" ||
-    (story[selectedCategory] && story[selectedCategory] === "on");
+!selectedCategory || story[selectedCategory] === "on";
 
         const matchSearch =
             search === "" ||
@@ -182,29 +181,44 @@ function applyFilters() {
 
 /* ========= Events ========= */
 
-searchInput.addEventListener("input", applyFilters);
+let searchTimer;
 
-document.querySelectorAll("#categoryButtons button").forEach(btn => {
-    btn.addEventListener("click", (e) => {
+searchInput.addEventListener("input", () => {
 
-        e.stopPropagation(); // ⛔ يمنع إغلاق الـ Drawer
+ clearTimeout(searchTimer);
 
-        document.querySelectorAll("#categoryButtons button")
-            .forEach(b => b.classList.remove("active"));
+ searchTimer = setTimeout(()=>{
+   applyFilters();
+ },300);
 
+});
+
+const categoryButtons = document.querySelectorAll("#categoryButtons button");
+
+categoryButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        // إزالة active من كل الأزرار
+        categoryButtons.forEach(b => b.classList.remove("active"));
+
+        // إضافة active للزر المضغوط
         btn.classList.add("active");
+
+        // تحديث التصنيف المحدد
         selectedCategory = btn.dataset.category || "";
 
+        // تحديث الرابط في المتصفح
         const url = new URL(window.location);
         if (selectedCategory)
             url.searchParams.set("category", selectedCategory);
         else
             url.searchParams.delete("category");
-
         window.history.pushState({}, "", url);
 
+        // تطبيق الفلترة على القصص
         applyFilters();
-        closeDrawer();
+
+        // إذا عندك Drawer
+        closeDrawer?.();
     });
 });
 
@@ -229,17 +243,20 @@ const categoryFromURL = getCategoryFromURL();
 loadStories().then(() => {
 
     // لو التصنيف غير موجود أو غير صحيح → all
-    selectedCategory =
-        categoryFromURL && categoriesArabic[categoryFromURL]
-            ? categoryFromURL
-            : "";
+    const categoryButtons = document.querySelectorAll("#categoryButtons button");
 
-    document.querySelectorAll("#categoryButtons button").forEach(btn => {
-        btn.classList.toggle(
-            "active",
-            btn.dataset.category === selectedCategory
-        );
-    });
+// حدد التصنيف من الرابط أو اجعل "الكل" افتراضي
+let selectedCategory = new URLSearchParams(window.location.search).get("category") || "";
+
+// ضع active للزر الصحيح عند التحميل
+categoryButtons.forEach(btn => {
+    const category = btn.dataset.category || "";
+    if (category === selectedCategory) {
+        btn.classList.add("active");
+    } else {
+        btn.classList.remove("active");
+    }
+});
 
     // تحديث الرابط ليكون نظيف
     const url = new URL(window.location);
