@@ -48,8 +48,8 @@ main, main *{
 }
    
 main.content {
-    margin: 70px auto 60px auto;
-    padding: 20px;
+    margin: 50px auto 60px auto;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 25px;

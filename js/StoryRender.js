@@ -204,7 +204,7 @@ addPlugin({
 addPlugin({
     name: "box-warn",
     regex: /\[warn\]([\s\S]*?)\[\/warn\]/g,
-    render: m => `<div class="box warn">⚠️ ${parseInline(m[1])}</div>`
+    render: m => `<div class="box warn"> ${parseInline(m[1])}</div>`
 });
 
 // Step Box: [step:title]content[/step]

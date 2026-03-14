@@ -71,7 +71,7 @@ function GoToChatUs(){
     window.location.href = "../html/ContactUs.html";
 }
 function GoToPrivacy() {
-    window.location.href = "../html/StoryShow.html?slug=story-سياسة-خصوصية";
+    window.location.href = "../html/StoryShow.html?slug=m3d-story-%D8%B3%D9%8A%D8%A7%D8%B3%D8%A9-%D8%AE%D8%B5%D9%88%D8%B5%D9%8A%D8%A9";
 }
 
 // Dark Mode
