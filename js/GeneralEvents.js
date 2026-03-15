@@ -104,10 +104,20 @@ if (backToTop) {
 }
 
 // copy paste stop
-document.addEventListener("contextmenu", e => e.preventDefault());
-
-["copy", "cut", "paste"].forEach(event => {
-  document.addEventListener(event, e => e.preventDefault());
+document.addEventListener("copy", function(e) {
+    // الحصول على النص المحدد
+    const selection = window.getSelection().toString();
+    
+    // نص إضافي تريد وضعه عند النسخ
+    const siteMessage = "\n\nللمزيد من القصص زورو موقعنا Al-eilm-hekaya: " + window.location.href;
+    
+    // دمج النص المحدد مع الرسالة
+    const copiedText = selection + siteMessage;
+    
+    // منع النسخ الافتراضي واستبداله بالنص الجديد
+    e.clipboardData.setData("text/plain", copiedText);
+    e.clipboardData.setData("text/html", copiedText); // حتى لو نسخ المستخدم في مستند HTML
+    e.preventDefault();
 });
 
 document.addEventListener("keydown", function(e) {
